@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-25 09:57+0200\n"
-"PO-Revision-Date: 2013-07-25 13:23+0100\n"
+"PO-Revision-Date: 2013-09-09 12:46+0100\n"
 "Last-Translator: Ralf Biedermann <ralf.biedermann@rbsoft.de>\n"
 "Language-Team: AndyBlacburn, j-ot&Trial\n"
 "Language: de\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SourceCharset: iso-8859-15\n"
 
 msgid ""
@@ -261,7 +261,7 @@ msgstr "Daten-DVD im %s %s Format (HDTV-kompatibel)"
 
 #, python-format
 msgid "%s %s front panel"
-msgstr "%s %s Frontpaneel"
+msgstr "%s %s Frontpanel"
 
 #, python-format
 msgid "%s %s ir keyboard"
@@ -373,7 +373,7 @@ msgid "1st Infobar timeout"
 msgstr "1. Infobar Timeout"
 
 msgid "23.976"
-msgstr ""
+msgstr "23.976"
 
 msgid "24"
 msgstr "24"
@@ -382,7 +382,7 @@ msgid "25"
 msgstr "25"
 
 msgid "29.97"
-msgstr ""
+msgstr "29.97"
 
 msgid "2X"
 msgstr "2X"
@@ -794,7 +794,7 @@ msgid "Album"
 msgstr "Album"
 
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 msgid "Alignment of events"
 msgstr "Ausrichtung der Sendungen"
@@ -1098,10 +1098,10 @@ msgid "Automatically update Client/Server View?"
 msgstr "Anzeige von Klienten/Server automatisch aktualisieren?"
 
 msgid "Autostart"
-msgstr ""
+msgstr "Autostart"
 
 msgid "Autostart:"
-msgstr ""
+msgstr "Autostart:"
 
 msgid "Available format variables"
 msgstr "Verfügbare Formatierungsvariablen"
@@ -1225,11 +1225,11 @@ msgstr "Puffer:"
 
 #, python-format
 msgid "Build:\t%s"
-msgstr ""
+msgstr "Version:\t%s"
 
 #, python-format
 msgid "Build: %s"
-msgstr ""
+msgstr "Version: %s"
 
 msgid "Bulgarian"
 msgstr "Bulgarisch"
@@ -1308,7 +1308,7 @@ msgid "CCcam Provider Info"
 msgstr "CCcam Anbieter Info"
 
 msgid "CCcam Remote Info"
-msgstr ""
+msgstr "CCcam Fernbedienungs Info"
 
 msgid "CCcam Server Info"
 msgstr "CCcam Server Info"
@@ -1330,7 +1330,7 @@ msgstr "CI-Zuweisung"
 
 #, python-format
 msgid "CPU:\t%s"
-msgstr ""
+msgstr "CPU:\t%s"
 
 msgid "CVBS"
 msgstr "CVBS"
@@ -1673,7 +1673,7 @@ msgid "Command order"
 msgstr "Befehlsfolge"
 
 msgid "Command type"
-msgstr ""
+msgstr "Befehlstyp"
 
 msgid "Committed DiSEqC command"
 msgstr "DiSEqC-Befehl übertragen"
@@ -1688,7 +1688,7 @@ msgid "Common Interface assignment"
 msgstr "Common Interface Zuweisung"
 
 msgid "Common interface"
-msgstr ""
+msgstr "Common interface"
 
 msgid "Communication"
 msgstr "Kommunikation"
@@ -2084,7 +2084,7 @@ msgid "Continue playing"
 msgstr "Abspielen fortsetzen"
 
 msgid "Continues"
-msgstr ""
+msgstr "weiter"
 
 msgid "Continues play (loop)"
 msgstr "Endlos (Schleife)"
@@ -2245,7 +2245,7 @@ msgid "Czech"
 msgstr "Tchechisch"
 
 msgid "DAC"
-msgstr ""
+msgstr "DAC"
 
 msgid "DHCP"
 msgstr "DHCP"
@@ -2257,7 +2257,7 @@ msgid "DMM advanced"
 msgstr "DMM erweitert"
 
 msgid "DMM normal"
-msgstr ""
+msgstr "DMM normal"
 
 msgid "DUAL LAYER DVD"
 msgstr "DUAL LAYER DVD"
@@ -3439,7 +3439,7 @@ msgid "History buttons mode"
 msgstr "History Tasten bewirken"
 
 msgid "History zap..."
-msgstr ""
+msgstr "History zap..."
 
 msgid "Hold screen"
 msgstr "Bild halten"
@@ -3790,7 +3790,7 @@ msgid "Instant recordings location"
 msgstr "Pfad für Sofortaufnahmen"
 
 msgid "Interface"
-msgstr ""
+msgstr "Interface"
 
 msgid "Interface: "
 msgstr "Interface: "
@@ -3935,7 +3935,7 @@ msgid "LNB"
 msgstr "LNB"
 
 msgid "Label"
-msgstr ""
+msgstr "Label"
 
 msgid "Language"
 msgstr "Sprache"
@@ -3944,7 +3944,7 @@ msgid "Language selection"
 msgstr "Sprachauswahl"
 
 msgid "Last Req."
-msgstr ""
+msgstr "letzter Aufruf"
 
 msgid "Last config"
 msgstr "Letzte Konfiguration"
@@ -4086,7 +4086,7 @@ msgid "Location"
 msgstr "Zielverzeichnis"
 
 msgid "Lock ratio"
-msgstr ""
+msgstr "Sperr Verhätnis"
 
 msgid "Log Manager"
 msgstr "Log Verwaltung"
@@ -4128,7 +4128,7 @@ msgid "Longitude"
 msgstr "Längengrad"
 
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Luxenburgisch"
 
 msgid "MAC:"
 msgstr "MAC:"
@@ -4436,7 +4436,7 @@ msgid "Name"
 msgstr "Name"
 
 msgid "Name:"
-msgstr ""
+msgstr "Name:"
 
 msgid "Nameserver"
 msgstr "DNS"
@@ -4937,7 +4937,7 @@ msgid "PIDs"
 msgstr "PIDs"
 
 msgid "PLP ID"
-msgstr ""
+msgstr "PLP ID"
 
 msgid "PMT PID"
 msgstr "PMT PID"
@@ -5850,7 +5850,7 @@ msgstr ""
 "Erweiterte A/V Einstellungen auf Ihre letzte Konfiguration zurücksetzen?"
 
 msgid "Reshare:"
-msgstr ""
+msgstr "erneute Freigabe"
 
 msgid "Resolution"
 msgstr "Auflösung"
@@ -5969,7 +5969,7 @@ msgid "SINGLE LAYER DVD"
 msgstr "SINGLE LAYER DVD"
 
 msgid "SPDIF"
-msgstr ""
+msgstr "SPDIF"
 
 msgid "SSID:"
 msgstr "SSID:"
@@ -6326,10 +6326,10 @@ msgid "Serial No"
 msgstr "Seriennummer"
 
 msgid "Serv.Name"
-msgstr ""
+msgstr "Serv.Name"
 
 msgid "Server:"
-msgstr ""
+msgstr "Server:"
 
 msgid "Servers"
 msgstr "Server"
@@ -6417,7 +6417,7 @@ msgstr ""
 "eine Favoritenliste benutzt werden."
 
 msgid "Set System"
-msgstr ""
+msgstr "gesetztes System"
 
 msgid "Set end Time"
 msgstr "End-Zeit eingeben"
@@ -7057,7 +7057,7 @@ msgid "Sports"
 msgstr "Sport"
 
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
 
 msgid "Standby"
 msgstr "Bereitschaft"
@@ -7069,7 +7069,7 @@ msgid "Standby / restart"
 msgstr "Bereitschaft / Neustart"
 
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 msgid "Start from the beginning"
 msgstr "Am Anfang starten"
@@ -7096,7 +7096,7 @@ msgid "Starting on"
 msgstr "Beginnend ab"
 
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 msgid "Step east"
 msgstr "Schritt nach Osten"
@@ -7176,7 +7176,7 @@ msgid "Stream request"
 msgstr "Stream Anfrage"
 
 msgid "Strict DLNA"
-msgstr ""
+msgstr "Strict DLNA"
 
 msgid "Strongest position"
 msgstr "Stärkste Position"
@@ -7315,7 +7315,7 @@ msgid "System temperature: %s"
 msgstr "Systemtemperatur: %s"
 
 msgid "System: "
-msgstr ""
+msgstr "System: "
 
 msgid "TB"
 msgstr "TB"
@@ -7331,7 +7331,7 @@ msgid "TSID"
 msgstr "TSID"
 
 msgid "TUNING"
-msgstr ""
+msgstr "TUNING"
 
 msgid "TV button mode"
 msgstr "TV Taste bewirkt"
@@ -7352,7 +7352,7 @@ msgid "Teletext subtitle color"
 msgstr "Farbe Videotextuntertitel"
 
 msgid "Telnet Interface"
-msgstr ""
+msgstr "Telnet Interface"
 
 msgid "Telnet Port"
 msgstr "Telnet Port"
@@ -7383,13 +7383,13 @@ msgid "Test type"
 msgstr "Testtyp"
 
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 msgid "Text color"
 msgstr "Textfarbe"
 
 msgid "Thai"
-msgstr ""
+msgstr "Thai"
 
 msgid ""
 "Thank you for using the wizard.\n"
@@ -8151,7 +8151,7 @@ msgid "Transmission mode"
 msgstr "Übertragungstyp"
 
 msgid "Transparent"
-msgstr ""
+msgstr "durchsichtig"
 
 msgid "Transponder"
 msgstr "Transponder"
@@ -9956,7 +9956,7 @@ msgid "gardening"
 msgstr "Garten"
 
 msgid "get the cards' server"
-msgstr ""
+msgstr "Karten Server"
 
 msgid "go to deep standby"
 msgstr "Ausschalten"
