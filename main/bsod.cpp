@@ -117,7 +117,7 @@ void bsodFatal(const char *component)
 	bsodhandled = true;
 
 	std::ostringstream os;
-	os << getConfigString("config.crash.debug_path", "/home/root/logs/");
+	os << getConfigString("config.crash.debug_path", "/media/hdd/");
 	os << "enigma2_crash_";
 	os << time(0);
 	os << ".log";
@@ -281,7 +281,7 @@ void bsodFatal(const char *component)
 	
 	std::string text("We are really sorry. Your receiver encountered "
 		"a software problem, and needs to be restarted. "
-		"Please send the logfile created in /home/root/logs/ to " + crash_emailaddr + ".\n"
+		"Please send the logfile created in /media/hdd/ to " + crash_emailaddr + ".\n"
 		"Your receiver restarts in 10 seconds!\n"
 		"Component: " + crash_component);
 
