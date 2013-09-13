@@ -2,6 +2,9 @@ SUBDIRS = fonts extensions keymaps rc_models
 
 dist_pkgdata_DATA = \
 	encoding.conf \
+	keymap.xml \
+	keymap.ntr \
+	keymap.u80 \
 	menu.xml \
 	black.mvi \
 	rcpositions.xml \
