@@ -2,70 +2,72 @@ from Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.Sources.StaticText import StaticText
-from Components.Harddisk import Harddisk, harddiskmanager
+from Components.Harddisk import Harddisk
 from Components.NimManager import nimmanager
 from Components.About import about
-from Components.config import config
 from Components.ScrollLabel import ScrollLabel
 from Components.Console import Console
-
 from enigma import eTimer, getBoxType, getMachineBrand, getMachineName, getImageVersionString, getBuildVersionString, getDriverDateString, getEnigmaVersionString
 
 from Components.Pixmap import MultiPixmap
 from Components.Network import iNetwork
 
-from Tools.StbHardware import getFPVersion 
-from os import path, popen
-from re import search
-import socket
-import fcntl
-import struct
+from Tools.StbHardware import getFPVersion
 
-def getHwAddr(ifname):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack('256s', ifname[:15]))
-    return ''.join(['%02x:' % ord(char) for char in info[18:24]])[:-1]
-    
-def get_ip_address(ifname):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915,  # SIOCGIFADDR
-        struct.pack('256s', ifname[:15])
-    )[20:24])
-    
+from os import path
+from re import search
+
 class About(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
+		Screen.setTitle(self, _("Image Information"))
+		self.skinName = "AboutOE"
+		self.populate()
 
-		#AboutText += _("Model:\t%s %s\n") % (getMachineBrand(), getMachineName())
+		self["key_green"] = Button(_("Translations"))
+		self["actions"] = ActionMap(["SetupActions", "ColorActions", "TimerEditActions"],
+			{
+				"cancel": self.close,
+				"ok": self.close,
+				"log": self.showAboutReleaseNotes,
+				"up": self["AboutScrollLabel"].pageUp,
+				"down": self["AboutScrollLabel"].pageDown,
+				"green": self.showTranslationInfo,
+			})
 
-		AboutText = _("Hardware: ") + about.getHardwareTypeString() + "\n"
+	def populate(self):
+		self["lab1"] = StaticText(_("openSWF"))
+		self["lab2"] = StaticText(_("By mcron"))
+		model = None
+		AboutText = ""
+		self["lab3"] = StaticText(_("Support at") + " www.sat-world-forum.com")
+		AboutText += _("Model:\t%s %s\n") % (getMachineBrand(), getMachineName())
+
 		if path.exists('/proc/stb/info/chipset'):
-			AboutText += _("Chipset: BCM%s") % about.getChipSetString().lower().replace('\n','').replace('bcm','') + "\n"
+			AboutText += _("Chipset:\tBCM%s") % about.getChipSetString().lower().replace('\n','').replace('bcm','') + "\n"
 
-		AboutText += _("CPU: %s") % about.getCPUString() + "\n"
-		AboutText += _("Cores: %s") % about.getCpuCoresString() + "\n"
-		AboutText += _("Drivers: ") + about.getDriversVersionString() + "\n"
-		AboutText += _("Image: ") + about.getImageVersionString() + "\n"
-		AboutText += _("Kernel Version: ") + about.getKernelVersionString() + "\n"
-		
-		EnigmaVersion = _("GUI: ") + about.getEnigmaVersionString()
-		self["EnigmaVersion"] = StaticText(EnigmaVersion)
-		AboutText += EnigmaVersion + "\n"
+		AboutText += _("CPU:\t%s") % about.getCPUString() + "\n"
+		AboutText += _("Cores:\t%s") % about.getCpuCoresString() + "\n"
 
-		ImageVersion = _("Last Upgrade: ") + about.getLastUpdateString()
-		self["ImageVersion"] = StaticText(ImageVersion)
-		AboutText += ImageVersion + "\n"
+		AboutText += _("Version:\t%s") % getImageVersionString() + "\n"
+		AboutText += _("Build:\t%s") % getBuildVersionString() + "\n"
+		AboutText += _("Kernel:\t%s") % about.getKernelVersionString() + "\n"
+
+		string = getDriverDateString()
+		year = string[0:4]
+		month = string[4:6]
+		day = string[6:8]
+		driversdate = '-'.join((year, month, day))
+		AboutText += _("Drivers:\t%s") % driversdate + "\n"
+
+		AboutText += _("Last update:\t%s") % getEnigmaVersionString() + "\n\n"
 
 		fp_version = getFPVersion()
 		if fp_version is None:
 			fp_version = ""
-		else:
+		elif fp_version != 0:
 			fp_version = _("Frontprocessor version: %d") % fp_version
 			AboutText += fp_version + "\n"
-
-		self["FPVersion"] = StaticText(fp_version)
 
 		tempinfo = ""
 		if path.exists('/proc/stb/sensors/temp0/value'):
@@ -78,127 +80,58 @@ class About(Screen):
 			f.close()
 		if tempinfo and int(tempinfo.replace('\n','')) > 0:
 			mark = str('\xc2\xb0')
-			AboutText += _("System Temperature:") + " " + tempinfo.replace('\n','') + mark + "C\n\n"
+			AboutText += _("System temperature: %s") % tempinfo.replace('\n','') + mark + "C\n\n"
 
-		self["TranslationHeader"] = StaticText(_("Translation:"))
-
-		# don't remove the string out of the _(), or it can't be "translated" anymore.
-		# TRANSLATORS: Add here whatever should be shown in the "translator" about screen, up to 6 lines (use \n for newline)
-		info = _("TRANSLATOR_INFO")
-
-		if info == _("TRANSLATOR_INFO"):
-			info = ""
-
-		infolines = _("").split("\n")
-		infomap = {}
-		for x in infolines:
-			l = x.split(': ')
-			if len(l) != 2:
-				continue
-			(type, value) = l
-			infomap[type] = value
-
-		translator_name = infomap.get("Language-Team", "none")
-		if translator_name == "none":
-			translator_name = infomap.get("Last-Translator", "")
-
-		#AboutText += _("Translation: ") + translator_name + "\n"
-		
-		self["FPVersion"] = StaticText(fp_version)
-		
-		#try:
-		#  AboutText += "\n" + _("MAC Address: ") + getHwAddr('eth0') + "\n"
-		#  AboutText += _("IP Address: ") + get_ip_address('eth0') + "\n"
-		#except:
-		#  AboutText += "\n" + _("MAC Address: N/A") + "\n"
-		#  AboutText += _("IP Address: N/A") + "\n"		  
-		
-		self["TunerHeader"] = StaticText(_("Detected NIMs:"))
-		#AboutText += "\n" + _("Detected NIMs:") + "\n"
-
-		nims = nimmanager.nimList()
-		for count in range(len(nims)):
-			if count < 4:
-				self["Tuner" + str(count)] = StaticText(nims[count])
-			else:
-				self["Tuner" + str(count)] = StaticText("")
-			#AboutText += nims[count] + "\n"
-
-		self["HDDHeader"] = StaticText(_("Detected HDD:"))
-		#AboutText += "\n" + _("Detected HDD:") + "\n"
-
-		hddlist = harddiskmanager.HDDList()
-		hddinfo = ""
-		if hddlist:
-			for count in range(len(hddlist)):
-				if hddinfo:
-					hddinfo += "\n"
-				hdd = hddlist[count][1]
-				if int(hdd.free()) > 1024:
-					hddinfo += "%s\n(%s, %d GB %s)" % (hdd.model(), hdd.capacity(), hdd.free()/1024, _("free"))
-				else:
-					hddinfo += "%s\n(%s, %d MB %s)" % (hdd.model(), hdd.capacity(), hdd.free(), _("free"))
-		else:
-			hddinfo = _("none")
-		self["hddA"] = StaticText(hddinfo)
-		#AboutText += hddinfo
 		self["AboutScrollLabel"] = ScrollLabel(AboutText)
-
-		self["actions"] = ActionMap(["SetupActions", "ColorActions", "DirectionActions"], 
-			{
-				"cancel": self.close,
-				"ok": self.close,
-				"green": self.showTranslationInfo,
-				"up": self["AboutScrollLabel"].pageUp,
-				"down": self["AboutScrollLabel"].pageDown
-			})
 
 	def showTranslationInfo(self):
 		self.session.open(TranslationInfo)
 
+	def showAboutReleaseNotes(self):
+		self.session.open(ViewGitLog)
+
+	def createSummary(self):
+		return AboutSummary
 
 class Devices(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		Screen.setTitle(self, _("Device Information"))
-		#self.skinName = ["SystemDevicesInfo", "About"]
-		self.skinName = ["About"]
-		
-		self.AboutText = ""
-		self["AboutScrollLabel"] = ScrollLabel(self.AboutText)
+		self["TunerHeader"] = StaticText(_("Detected NIMs:"))
+		self["HDDHeader"] = StaticText(_("Detected Devices:"))
+		self["MountsHeader"] = StaticText(_("Network Servers:"))
+		self["nims"] = StaticText()
+		self["hdd"] = StaticText()
+		self["mounts"] = StaticText()
+		self.list = []
 		self.activityTimer = eTimer()
 		self.activityTimer.timeout.get().append(self.populate2)
-		self.populate()
-
-		
-
 		self["actions"] = ActionMap(["SetupActions", "ColorActions", "TimerEditActions"],
 			{
 				"cancel": self.close,
 				"ok": self.close,
 			})
+		self.onLayoutFinish.append(self.populate)
 
 	def populate(self):
+		self.mountinfo = ''
+		self["actions"].setEnabled(False)
 		scanning = _("Wait please while scanning for devices...")
-		self["AboutScrollLabel"].setText(scanning)
-		self.activityTimer.start(10)
+		self["nims"].setText(scanning)
+		self["hdd"].setText(scanning)
+		self['mounts'].setText(scanning)
+		self.activityTimer.start(1)
 
 	def populate2(self):
 		self.activityTimer.stop()
 		self.Console = Console()
-		
-		self.AboutText = _("Hardware: ") + about.getHardwareTypeString() + "\n"
-		self.AboutText += "\n" + _("Detected NIMs:") + "\n"
-
+		niminfo = ""
 		nims = nimmanager.nimList()
 		for count in range(len(nims)):
-			if count < 4:
-				self["Tuner" + str(count)] = StaticText(nims[count])
-			else:
-				self["Tuner" + str(count)] = StaticText("")
-			self.AboutText += nims[count] + "\n"
-
-		self.AboutText += "\n" + _("Detected HDD:") + "\n"
+			if niminfo:
+				niminfo += "\n"
+			niminfo += nims[count]
+		self["nims"].setText(niminfo)
 
 		self.list = []
 		list2 = []
@@ -250,13 +183,9 @@ class Devices(Screen):
 
 			list2.append(device)
 		self.list = '\n'.join(self.list)
-		
-		self.AboutText += self.list + "\n"
-		self.AboutText += "\n" + _("Network Servers:") + "\n"
-		self.mountinfo = "none"
+		self["hdd"].setText(self.list)
+
 		self.Console.ePopen("df -mh | grep -v '^Filesystem'", self.Stage1Complete)
-		self.AboutText +=self.mountinfo
-		self["AboutScrollLabel"].setText(self.AboutText)
 
 	def Stage1Complete(self,result, retval, extra_args = None):
 		result = result.replace('\n                        ',' ').split('\n')
@@ -270,26 +199,27 @@ class Devices(Screen):
 				mountfree = line[3]
 				if self.mountinfo:
 					self.mountinfo += "\n"
-					self.mountinfo += "%s (%sB, %sB %s)" % (ipaddress, mounttotal, mountfree, _("free"))
-		if self.mountinfo:
-			self.mountinfo += "\n"
-		else:
-			self.mountinfo += (_('none'))
-		try:
-			self.AboutText += self.mountinfo + "\n"
-		except:	
-			pass
+				self.mountinfo += "%s (%sB, %sB %s)" % (ipaddress, mounttotal, mountfree, _("free"))
 
+		if self.mountinfo:
+			self["mounts"].setText(self.mountinfo)
+		else:
+			self["mounts"].setText(_('none'))
+		self["actions"].setEnabled(True)
+
+	def createSummary(self):
+		return AboutSummary
 
 class SystemMemoryInfo(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		Screen.setTitle(self, _("Memory Information"))
-		#self.skinName = ["SystemMemoryInfo", "About"]
-		self.skinName = ["About"]
+		self.skinName = ["SystemMemoryInfo", "About"]
+		self["lab1"] = StaticText(_("openATV"))
+		self["lab2"] = StaticText(_("By openATV Image Team"))
 		self["AboutScrollLabel"] = ScrollLabel()
 
-		self["actions"] = ActionMap(["SetupActions", "ColorActions", "TimerEditActions"],
+		self["actions"] = ActionMap(["SetupActions", "ColorActions"],
 			{
 				"cancel": self.close,
 				"ok": self.close,
@@ -320,6 +250,7 @@ class SystemMemoryInfo(Screen):
 				SwapFree = out_lines[lidx].split()
 				self.AboutText += _("Free Swap:") + "\t" + SwapFree[1] + "\n\n"
 
+		self["actions"].setEnabled(False)
 		self.Console = Console()
 		self.Console.ePopen("df -mh / | grep -v '^Filesystem'", self.Stage1Complete)
 
@@ -334,21 +265,16 @@ class SystemMemoryInfo(Screen):
 		self.AboutText += _("Free:") + "\t" + RamFree + "\n\n"
 
 		self["AboutScrollLabel"].setText(self.AboutText)
+		self["actions"].setEnabled(True)
 
-		self["actions"] = ActionMap(["SetupActions", "ColorActions"],
-			{
-				"cancel": self.close,
-				"ok": self.close,
-			})
-
-
+	def createSummary(self):
+		return AboutSummary
 
 class SystemNetworkInfo(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		Screen.setTitle(self, _("Network Information"))
-		self.skinName = ["SystemNetworkInfo", "About"]
-		#self.skinName = ["About"]
+		self.skinName = ["SystemNetworkInfo", "WlanStatus"]
 		self["LabelBSSID"] = StaticText()
 		self["LabelESSID"] = StaticText()
 		self["LabelQuality"] = StaticText()
@@ -366,7 +292,8 @@ class SystemNetworkInfo(Screen):
 		self["IF"] = StaticText()
 		self["Statustext"] = StaticText()
 		self["statuspic"] = MultiPixmap()
-		self["statuspic"].hide()
+		self["statuspic"].setPixmapNum(1)
+		self["statuspic"].show()
 
 		self.iface = None
 		self.createscreen()
@@ -420,7 +347,6 @@ class SystemNetworkInfo(Screen):
 		hostname = file('/proc/sys/kernel/hostname').read()
 		self.AboutText += "\n" + _("Hostname:") + "\t" + hostname + "\n"
 		self["AboutScrollLabel"] = ScrollLabel(self.AboutText)
-
 
 	def cleanup(self):
 		if self.iStatus:
@@ -485,7 +411,6 @@ class SystemNetworkInfo(Screen):
 						self["AboutScrollLabel"].setText(self.AboutText)
 
 	def exit(self):
-		self.timer.stop()
 		self.close(True)
 
 	def updateStatusbar(self):
@@ -532,7 +457,7 @@ class SystemNetworkInfo(Screen):
 				self["statuspic"].setPixmapNum(1)
 				self["statuspic"].show()
 		except:
-			self["statuspic"].setPixmapNum(0)
+			pass
 
 	def createSummary(self):
 		return AboutSummary
@@ -540,24 +465,110 @@ class SystemNetworkInfo(Screen):
 class AboutSummary(Screen):
 	def __init__(self, session, parent):
 		Screen.__init__(self, session, parent = parent)
+		self["selected"] = StaticText("openSWF:" + getImageVersionString())
 
-		self["selected"] = StaticText("About")
-		self["BoxType"] = StaticText(_("Hardware: "))
-		self["KernelVersion"] = StaticText(_("Kernel:") + " " + about.getKernelVersionString())
-		self["ImageType"] = StaticText(_("Image:") + " " + about.getImageTypeString())
-		self["ImageVersion"] = StaticText(_("Version:") + " " + about.getImageVersionString())
-		self["EnigmaVersion"] = StaticText(_("Last Update:"))
-		
+		AboutText = _("Model:\t%s %s\n") % (getMachineBrand(), getMachineName())
+
+		if path.exists('/proc/stb/info/chipset'):
+			chipset = open('/proc/stb/info/chipset', 'r').read()
+			AboutText += _("Chipset: BCM%s") % chipset.replace('\n','') + "\n"
+
+		AboutText += _("Version: %s") % getImageVersionString() + "\n"
+		AboutText += _("Build: %s") % getBuildVersionString() + "\n"
+		AboutText += _("Kernel: %s") % about.getKernelVersionString() + "\n"
+
+		string = getDriverDateString()
+		year = string[0:4]
+		month = string[4:6]
+		day = string[6:8]
+		driversdate = '-'.join((year, month, day))
+		AboutText += _("Drivers: %s") % driversdate + "\n"
+		AboutText += _("Last update: %s") % getEnigmaVersionString() + "\n\n"
+
+		tempinfo = ""
+		if path.exists('/proc/stb/sensors/temp0/value'):
+			tempinfo = open('/proc/stb/sensors/temp0/value', 'r').read()
+		elif path.exists('/proc/stb/fp/temp_sensor'):
+			tempinfo = open('/proc/stb/fp/temp_sensor', 'r').read()
+		if tempinfo and int(tempinfo.replace('\n','')) > 0:
+			mark = str('\xc2\xb0')
+			AboutText += _("System temperature: %s") % tempinfo.replace('\n','') + mark + "C\n\n"
+
+		self["AboutText"] = StaticText(AboutText)
+
+class ViewGitLog(Screen):
+	def __init__(self, session, args = None):
+		Screen.__init__(self, session)
+		self.skinName = "SoftwareUpdateChanges"
+		self.setTitle(_("OE Changes"))
+		self.logtype = 'oe'
+		self["text"] = ScrollLabel()
+		self['title_summary'] = StaticText()
+		self['text_summary'] = StaticText()
+		self["key_red"] = Button(_("Close"))
+		self["key_green"] = Button(_("OK"))
+		self["key_yellow"] = Button(_("Show E2 Log"))
+		self["myactions"] = ActionMap(['ColorActions', 'OkCancelActions', 'DirectionActions'],
+		{
+			'cancel': self.closeRecursive,
+			'green': self.closeRecursive,
+			"red": self.closeRecursive,
+			"yellow": self.changelogtype,
+			"left": self.pageUp,
+			"right": self.pageDown,
+			"down": self.pageDown,
+			"up": self.pageUp
+		},-1)
+		self.onLayoutFinish.append(self.getlog)
+
+	def changelogtype(self):
+		if self.logtype == 'e2':
+			self["key_yellow"].setText(_("Show E2 Log"))
+			self.setTitle(_("OE Changes"))
+			self.logtype = 'oe'
+		else:
+			self["key_yellow"].setText(_("Show OE Log"))
+			self.setTitle(_("Enimga2 Changes"))
+			self.logtype = 'e2'
+		self.getlog()
+
+	def pageUp(self):
+		self["text"].pageUp()
+
+	def pageDown(self):
+		self["text"].pageDown()
+
+	def getlog(self):
+		fd = open('/etc/' + self.logtype + '-git.log', 'r')
+		releasenotes = fd.read()
+		fd.close()
+		releasenotes = releasenotes.replace('\nopenswf: build',"\n\nopenswf: build")
+		self["text"].setText(releasenotes)
+		summarytext = releasenotes
+		try:
+			self['title_summary'].setText(summarytext[0]+':')
+			self['text_summary'].setText(summarytext[1])
+		except:
+			self['title_summary'].setText("")
+			self['text_summary'].setText("")
+
+	def unattendedupdate(self):
+		self.close((_("Unattended upgrade without GUI and reboot system"), "cold"))
+
+	def closeRecursive(self):
+		self.close((_("Cancel"), ""))
+
 class TranslationInfo(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
+		Screen.setTitle(self, _("Translation Information"))
 		# don't remove the string out of the _(), or it can't be "translated" anymore.
 
 		# TRANSLATORS: Add here whatever should be shown in the "translator" about screen, up to 6 lines (use \n for newline)
 		info = _("TRANSLATOR_INFO")
 
 		if info == "TRANSLATOR_INFO":
-			info = "(N/A)"
+			info = ""
 
 		infolines = _("").split("\n")
 		infomap = {}
