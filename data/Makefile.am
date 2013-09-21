@@ -9,6 +9,7 @@ dist_pkgdata_DATA = \
 	black.mvi \
 	rcpositions.xml \
 	setup.xml \
+	skin_default.xml \
 	skin_subtitles.xml \
 	startwizard.xml \
 	userinterfacepositionerwizard.xml \
