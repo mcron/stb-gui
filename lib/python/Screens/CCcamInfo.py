@@ -120,7 +120,6 @@ class EGCCcamEditAddLine(ConfigListScreen,Screen):
 	  des = str(self.deskey.value)
 	  des = "0" + des
 	  des = list(des)
-	  # N: 127.0.0.1 10000 dummy dummy 01 02 03 04 05 06 07 08 09 10 11 12 13 14
 	  des = des[0] + des[1] + " " + des[2] + des[3] + " " + des[4] + des[5] + " " + des[6] + des[7] + " " + des[8] + des[9] + " " + des[10] + des[11] + " " + des[12] + des[13] + " " + des[14] + des[15] + " " + des[16] + des[17] + " " + des[18] + des[19] + " " + des[20] + des[21] + " " + des[22] + des[23] + " " + des[24] + des[25] + " " + des[26] + des[27]
 	  line = self.protocol.value + " " + self.domain.value + " " + str(self.port.value) + " " + self.username.value + " " + self.password.value + " " + des
 	else:
