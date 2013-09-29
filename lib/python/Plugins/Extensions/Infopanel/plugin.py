@@ -66,20 +66,20 @@ from Plugins.Extensions.Infopanel.SwapManager import Swap, SwapAutostart
 from Plugins.Extensions.Infopanel.SoftwarePanel import SoftwarePanel
 from Plugins.SystemPlugins.SoftwareManager.BackupRestore import BackupScreen, RestoreScreen, BackupSelection, getBackupPath, getBackupFilename
 
-#def Check_Softcam():
-	#found = False
-	#for x in os.listdir('/etc'):
-		#if x.find('.conf') > -1:
-			#found = True
-			#break;
-	#return found
+def Check_Softcam():
+	found = False
+	for x in os.listdir('/etc'):
+		if x.find('.conf') > -1:
+			found = True
+			break;
+	return found
 
 # Hide Softcam-Panel Setup when no softcams installed
-#if not Check_Softcam() and (config.plugins.showinfopanelextensions.getValue() or config.plugins.infopanel_redpanel.enabledlong.getValue()):
-	#config.plugins.showinfopanelextensions.setValue(False)
-	#config.plugins.infopanel_redpanel.enabledlong.setValue(False)
-	#config.plugins.showinfopanelextensions.save()
-	#config.plugins.infopanel_redpanel.save()
+if not Check_Softcam() and (config.plugins.showinfopanelextensions.getValue() or config.plugins.infopanel_redpanel.enabledlong.getValue()):
+	config.plugins.showinfopanelextensions.setValue(False)
+	config.plugins.infopanel_redpanel.enabledlong.setValue(False)
+	config.plugins.showinfopanelextensions.save()
+	config.plugins.infopanel_redpanel.save()
 
 # Hide Keymap selection when no other keymaps installed.
 if config.usage.keymap.getValue() != eEnv.resolve("${datadir}/enigma2/keymap.xml"):

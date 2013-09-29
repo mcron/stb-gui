@@ -131,14 +131,14 @@ class EGCCcamEditAddLine(ConfigListScreen,Screen):
 	
 	if self.def_mode == "EDIT":
 		  print "EDIT Mode"
-		  zrodlo = open('/etc/CCcam.cfg').readlines()
-		  cel = open('/etc/CCcam.cfg', 'w')
+		  zrodlo = open('/usr/keys/CCcam.cfg').readlines()
+		  cel = open('/usr/keys/CCcam.cfg', 'w')
 		  for s in zrodlo:
 			  cel.write(s.replace(self.def_line , line))
 		  cel.close()
 	else:
 		  print "ADD Mode"
-		  with open("/etc/CCcam.cfg", "r+") as f:
+		  with open("/usr/keys/CCcam.cfg", "r+") as f:
 		      old = f.read() # read everything in the file
 		      f.seek(0) # rewind
 		      f.write(line + "\n" + old) # write the new line before
@@ -194,7 +194,7 @@ class EGCCcamConfigEdit(Screen):
 		self.initSelectionList()
 		self.list= []
 		
-		f = open('/etc/CCcam.cfg', 'r')
+		f = open('/usr/keys/CCcam.cfg', 'r')
 		for line in f.readlines():
 			if line.startswith('C:'):
 			  print "Find C: lines in CCcam.cfg"
@@ -246,8 +246,8 @@ class EGCCcamConfigEdit(Screen):
 	      print "keyRemove2"
 	      mysel = self['menu'].getCurrent()    
 	      if mysel:
-		zrodlo = open('/etc/CCcam.cfg').readlines()
-		cel = open('/etc/CCcam.cfg', 'w')
+		zrodlo = open('/usr/keys/CCcam.cfg').readlines()
+		cel = open('/usr/keys/CCcam.cfg', 'w')
 		for s in zrodlo:
 			cel.write(s.replace(mysel , "#"))
 		cel.close()
@@ -266,7 +266,7 @@ class EGCCcamConfigEdit(Screen):
 
 VERSION = "v1.3c"
 DATE = "24.12.2009"
-CFG = "/etc/CCcam.cfg"
+CFG = "/usr/keys/CCcam.cfg"
 
 #############################################################
 
