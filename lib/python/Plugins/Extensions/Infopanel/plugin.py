@@ -179,13 +179,16 @@ def Plugins(**kwargs):
 
 #############------- SKINS --------############################
 
-MENU_SKIN = """<screen position="center,center" size="500,370" title="INFO Panel" >
-	<widget source="global.CurrentTime" render="Label" position="0, 340" size="500,24" font="Regular;20" foregroundColor="#FFFFFF" halign="right" transparent="1" zPosition="5">
+MENU_SKIN = """<screen position="center,center" size="950,470" title="INFO Panel" >
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Infopanel/pics/redlogo.png" position="0,380" size="950,84" alphatest="on" zPosition="1"/>
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/Infopanel/pics/openswf_info.png" position="510,11" size="550,354" alphatest="on" zPosition="1"/>
+		<widget source="global.CurrentTime" render="Label" position="450, 340" size="500,24" font="Regular;20" foregroundColor="#FFFFFF" halign="right" transparent="1" zPosition="5">
 		<convert type="ClockToText">>Format%H:%M:%S</convert>
 	</widget>
-	<eLabel backgroundColor="#56C856" position="0,330" size="500,1" zPosition="0" />
+	<eLabel backgroundColor="#56C856" position="0,330" size="950,1" zPosition="0" />
 	<widget name="Mlist" position="10,10" size="480,300" zPosition="1" scrollbarMode="showOnDemand" backgroundColor="#251e1f20" transparent="1" />
 	<widget name="label1" position="10,340" size="490,25" font="Regular;20" transparent="1" foregroundColor="#f2e000" halign="left" />
+
 </screen>"""
 
 CONFIG_SKIN = """<screen position="center,center" size="600,440" title="PANEL Config" >
