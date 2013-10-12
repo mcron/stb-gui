@@ -28,13 +28,13 @@ def SwapAutostart(reason, session=None, **kwargs):
 			print "[SwapManager] autostart"
 			startswap = StartSwap()
 			startswap.start()
-	
+
 class StartSwap:
 	def __init__(self):
 		self.Console = Console()
 
 	def start(self):
-	 	self.Console.ePopen("sfdisk -l /dev/sd? | grep swap", self.startSwap2)
+	 	self.Console.ePopen("sfdisk -l /dev/sd? 2>/dev/null | grep swap", self.startSwap2)
 
 	def startSwap2(self, result = None, retval = None, extra_args = None):
 		swap_place = ""
@@ -65,7 +65,7 @@ class StartSwap:
 			system('swapon ' + swap_place)
 		else:
 			print "[SwapManager] Swapfile is already active on ", swap_place
-	
+
 #######################################################################
 class Swap(Screen):
 	skin = """
@@ -136,7 +136,7 @@ class Swap(Screen):
 			config.plugins.infopanel.swapautostart.save()
 		if path.exists('/tmp/swapdevices.tmp'):
 			remove('/tmp/swapdevices.tmp')
-		self.Console.ePopen("sfdisk -l /dev/sd? | grep swap", self.updateSwap2)
+		self.Console.ePopen("sfdisk -l /dev/sd? 2>/dev/null | grep swap", self.updateSwap2)
 
 	def updateSwap2(self, result = None, retval = None, extra_args = None):
 		self.swapsize = 0
@@ -295,7 +295,7 @@ class Swap(Screen):
 			self.commands.append('dd if=/dev/zero of=' + myfile + ' bs=1024 count=' + swapsize + ' 2>/dev/null')
 			self.commands.append('mkswap ' + myfile)
 			self.Console.eBatch(self.commands, self.updateSwap, debug=True)
-		
+
 	def autoSsWap(self):
 		if self.swap_place:
 			if config.plugins.infopanel.swapautostart.getValue():
