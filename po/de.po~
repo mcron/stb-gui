@@ -3376,7 +3376,7 @@ msgstr "Lüfter %d PWM"
 msgid "Fan %d Voltage"
 msgstr "Lüfter %d Spannung"
 
-msgid "FAN Control"
+msgid "Fan Control"
 msgstr "Lüfterkontrolle"
 
 msgid "Fan basic action"
@@ -5427,7 +5427,7 @@ msgid "Picture in graphics"
 msgstr "Mini-TV Bild im grafischen EPG anzeigen"
 
 #
-msgid "Picture player"
+msgid "PicturePlayer"
 msgstr "Bildbetrachter"
 
 #
