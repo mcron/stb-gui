@@ -5192,6 +5192,9 @@ msgid "OSD name request"
 msgstr "OSD Spracheinstellung"
 
 #
+msgid "User interface"
+msgstr "Benutzeroberfläche"
+
 msgid "User interface visibility"
 msgstr "Benutzer Interface Deckkraft"
 
@@ -9815,6 +9818,8 @@ msgstr "Untertitel Schriftgrösse"
 msgid "Use original DVB subtitle position"
 msgstr "DVB-Untertitel Position"
 
+msgid "User interface"
+msgstr "Benutzeroberfläche"
 #
 msgid "Yes"
 msgstr "Ja"
@@ -14551,16 +14556,16 @@ msgstr ""
 "Möchten Sie gleich neustarten ?"
 
 msgid "LCD Skin-Selector"
-msgstr "Skin-Auswahl"
+msgstr "LCD-Skin-Auswahl"
 
 msgid "Setup your LCD"
 msgstr "Einstellen des LCDs"
 
 msgid "LCD Skin Setup"
-msgstr "LCD Skin Auswahl"
+msgstr "Skin Auswahl"
 
 msgid "Skin setup"
-msgstr "LCD Skin Auswahl"
+msgstr "Skin Auswahl"
 
 msgid "LCD scroll speed"
 msgstr "LCD Scollgeschwindigkeit"

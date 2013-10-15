@@ -3376,7 +3376,7 @@ msgstr "Lüfter %d PWM"
 msgid "Fan %d Voltage"
 msgstr "Lüfter %d Spannung"
 
-msgid "Fan Control"
+msgid "FAN Control"
 msgstr "Lüfterkontrolle"
 
 msgid "Fan basic action"
@@ -5427,7 +5427,7 @@ msgid "Picture in graphics"
 msgstr "Mini-TV Bild im grafischen EPG anzeigen"
 
 #
-msgid "PicturePlayer"
+msgid "Picture player"
 msgstr "Bildbetrachter"
 
 #
@@ -9815,6 +9815,8 @@ msgstr "Untertitel Schriftgrösse"
 msgid "Use original DVB subtitle position"
 msgstr "DVB-Untertitel Position"
 
+msgid "User interface"
+msgstr "Benutzeroberfläche"
 #
 msgid "Yes"
 msgstr "Ja"
@@ -14551,13 +14553,13 @@ msgstr ""
 "Möchten Sie gleich neustarten ?"
 
 msgid "LCD Skin-Selector"
-msgstr "Skin-Auswahl"
+msgstr "LCD-Skin-Auswahl"
 
 msgid "Setup your LCD"
 msgstr "Einstellen des LCDs"
 
 msgid "LCD Skin Setup"
-msgstr "LCD Skin Auswahl"
+msgstr "Skin Auswahl"
 
 msgid "Skin setup"
 msgstr "LCD Skin Auswahl"
