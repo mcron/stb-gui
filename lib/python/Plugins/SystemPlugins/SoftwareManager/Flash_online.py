@@ -13,7 +13,7 @@ from Screens.Console import Console
 from Screens.HelpMenu import HelpableScreen
 from Screens.TaskView import JobView
 from Tools.Downloader import downloadWithProgress
-from enigma import getBoxType, getDistro
+from enigma import getBoxType, getDistro, getMachineName
 import urllib2
 import os
 import shutil
@@ -21,14 +21,7 @@ import shutil
 distro = getDistro()
 
 #############################################################################################################
-image = 0 # 0=swf / 1=openMips
-if distro.lower() == "openmips":
-	image = 1
-elif distro.lower() == "swf":
-	from enigma import getMachineBrand, getMachineName
-	image = 0
-feedurl_swf = 'http://sat-world-forum.com/ronny/images'
-feedurl_om = 'http://image.openmips.com/2.0'
+feedurl_mcron = 'http://sat-world-forum.com/ronny/images/ventonhdx/online'
 imagePath = '/hdd/images'
 flashPath = '/hdd/images/flash'
 flashTmp = '/hdd/images/tmp'
@@ -38,7 +31,7 @@ ofgwritePath = '/usr/bin/ofgwrite'
 def Freespace(dev):
 	statdev = os.statvfs(dev)
 	space = (statdev.f_bavail * statdev.f_frsize) / 1024
-	print "[Flash Online] Free space on %s = %i bytes" %(dev, space)
+	print "[Flash Online] Free space on %s = %i kilobytes" %(dev, space)
 	return space
 
 class FlashOnline(Screen):
@@ -141,11 +134,7 @@ class doFlashImage(Screen):
 		self.simulate = False
 		self.Online = online
 		self.imagePath = imagePath
-		self.feedurl = feedurl_swf
-		if image == 0:
-			self.feed = "swf"
-		else:
-			self.feed = "om"
+		self.feedurl = feedurl_mcron
 		self["imageList"] = MenuList(self.imagelist)
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"], 
 		{
@@ -163,12 +152,6 @@ class doFlashImage(Screen):
 		
 	def blue(self):
 		if self.Online:
-			if image == 1:
-				if self.feed == "swf":
-					self.feed = "om"
-				else:
-					self.feed = "swf"
-				self.layoutFinished()
 			return
 		sel = self["imageList"].l.getCurrentSelection()
 		if sel == None:
@@ -186,8 +169,19 @@ class doFlashImage(Screen):
 		
 	def box(self):
 		box = getBoxType()
+		machinename = getMachineName()
 		if box == 'odinm6':
 			box = getMachineName().lower()
+		elif box == "inihde" and machinename.lower() == "xpeedlx":
+			box = "xpeedlx"
+		elif box == "inihde" and machinename.lower() == "hd-1000":
+			box = "sezam-1000hd"
+		elif box == "ventonhdx" and machinename.lower() == "hd-5000":
+			box = "sezam-5000hd"
+		elif box == "ventonhdx" and machinename.lower() == "premium twin":
+			box = "miraclebox-twin"
+		elif box == "xp1000" and machinename.lower() == "sf8 hd":
+			box = "sf8"
 		return box
 
 	def green(self):
@@ -200,7 +194,7 @@ class doFlashImage(Screen):
 		box = self.box()
 		self.hide()
 		if self.Online:
-			url = self.feedurl + "/" + box + "/" + sel
+			url = self.feedurl + "/" + "/" + sel
 			u = urllib2.urlopen(url)
 			f = open(file_name, 'wb')
 			meta = u.info()
@@ -289,8 +283,9 @@ class doFlashImage(Screen):
 		if not self.Online:
 			self.session.openWithCallback(self.DeviceBrowserClosed, DeviceBrowser, None, matchingPattern="^.*\.(zip|bin|jffs2)", showDirectories=True, showMountpoints=True, inhibitMounts=["/autofs/sr0/"])
 
-	def DeviceBrowserClosed(self, path):
+	def DeviceBrowserClosed(self, path, filename, binorzip):
 		if path:
+			print path, filename, binorzip
 			strPath = str(path)
 			if strPath[-1] == '/':
 				strPath = strPath[:-1]
@@ -298,11 +293,17 @@ class doFlashImage(Screen):
 			if os.path.exists(flashTmp):
 				os.system('rm -rf ' + flashTmp)
 			os.mkdir(flashTmp)
-			for files in os.listdir(self.imagePath):
-				if files.endswith(".bin") or files.endswith('.jffs2'):
-					self.prepair_flashtmp(strPath)
-					break
-			self.layoutFinished()
+			if binorzip == 0:
+				for files in os.listdir(self.imagePath):
+					if files.endswith(".bin") or files.endswith('.jffs2'):
+						self.prepair_flashtmp(strPath)
+						break
+				self.Start_Flashing()
+			elif binorzip == 1:
+				self.unzip_image(strPath + '/' + filename, flashPath)
+			else:
+				self.layoutFinished()
+	
 		else:
 			self.imagePath = imagePath
 
@@ -311,18 +312,10 @@ class doFlashImage(Screen):
 		self.imagelist = []
 		if self.Online:
 			self["key_yellow"].setText("")
-			if image == 1:
-				if self.feed == "swf":
-					self.feedurl = feedurl_swf
-					self["key_blue"].setText("swf")
-				else:
-					self.feedurl = feedurl_om
-					self["key_blue"].setText("swf")
-			else:
-				self.feedurl = feedurl_swf
-				self["key_blue"].setText("")
-			url = '%s/ventonhdx%s' % (self.feedurl,box)
-			req = urllib2.Request(url)
+			self.feedurl = feedurl_mcron
+			self["key_blue"].setText("")
+			#url = '%s/index.php?open=%s' % (self.feedurl,box)
+			req = urllib2.Request(self.feedurl)
 			try:
 				response = urllib2.urlopen(req)
 			except urllib2.URLError as e:
@@ -337,14 +330,9 @@ class doFlashImage(Screen):
 				return
 
 			lines = the_page.split('\n')
-			tt = len(box)
 			for line in lines:
-				if line.find("<a href='%s/" % box) > -1:
-					t = line.find("<a href='%s/" % box)
-					if self.feed == "swf":
-						self.imagelist.append(line[t+tt+10:t+tt+tt+39])
-					else:
-						self.imagelist.append(line[t+tt+10:t+tt+tt+40])
+				if line.find('<a href="swf-3.0-') > -1 and line.find('_usb.zip') > -1:
+					self.imagelist.append(line[13:47])
 		else:
 			self["key_blue"].setText(_("Delete"))
 			self["key_yellow"].setText(_("Devices"))
@@ -418,7 +406,7 @@ class ImageDownloadTask(Task):
 
 class DeviceBrowser(Screen, HelpableScreen):
 	skin = """
-		<screen name="DeviceBrowser" position="center,center" size="520,430" title="Please select target medium" >
+		<screen name="DeviceBrowser" position="center,center" size="520,430" >
 			<ePixmap pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on" />
 			<ePixmap pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on" />
 			<widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
@@ -431,6 +419,7 @@ class DeviceBrowser(Screen, HelpableScreen):
 		Screen.__init__(self, session)
 
 		HelpableScreen.__init__(self)
+		Screen.setTitle(self, _("Please select medium"))
 
 		self["key_red"] = StaticText(_("Cancel"))
 		self["key_green"] = StaticText()
@@ -458,7 +447,7 @@ class DeviceBrowser(Screen, HelpableScreen):
 	def updateButton(self):
 
 		if self["filelist"].getFilename() or self["filelist"].getCurrentDirectory():
-			self["key_green"].text = _("Use")
+			self["key_green"].text = _("Flash")
 		else:
 			self["key_green"].text = ""
 
@@ -475,12 +464,13 @@ class DeviceBrowser(Screen, HelpableScreen):
 
 	def use(self):
 		print "[use]", self["filelist"].getCurrentDirectory(), self["filelist"].getFilename()
-		if self["filelist"].getCurrentDirectory() is not None:
-			if self.filelist.canDescent() and self["filelist"].getFilename() and len(self["filelist"].getFilename()) > len(self["filelist"].getCurrentDirectory()):
-				self.filelist.descent()
-			self.close(self["filelist"].getCurrentDirectory())
-		elif self["filelist"].getFilename():
-			self.close(self["filelist"].getFilename())
+		if self["filelist"].getFilename() is not None and self["filelist"].getCurrentDirectory() is not None:
+			if self["filelist"].getFilename().endswith(".bin") or self["filelist"].getFilename().endswith(".jffs2"):
+				self.close(self["filelist"].getCurrentDirectory(), self["filelist"].getFilename(), 0)
+			elif self["filelist"].getFilename().endswith(".zip"):
+				self.close(self["filelist"].getCurrentDirectory(), self["filelist"].getFilename(), 1)
+			else:
+				return
 
 	def exit(self):
-		self.close(False)
+		self.close(False, False, -1)
