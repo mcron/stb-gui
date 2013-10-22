@@ -49,8 +49,8 @@ class About(Screen):
 		AboutText += _("CPU:\t%s") % about.getCPUString() + "\n"
 		AboutText += _("Cores:\t%s") % about.getCpuCoresString() + "\n"
 
-		AboutText += _("Version: swf-3.0-ventonhdx-build_rev-%s") % getBuildVersionString() + "\n"
-		#AboutText += _("Build:\t%s") % getBuildVersionString() + "\n"
+		AboutText += _("Version:\t%s") % getImageVersionString() + "\n"
+		AboutText += _("Build:\t%s") % getBuildVersionString() + "\n"
 		AboutText += _("Kernel:\t%s") % about.getKernelVersionString() + "\n"
 
 		string = getDriverDateString()
