@@ -392,13 +392,13 @@ def InitUsageConfig():
 	config.crash.daysloglimit = ConfigSelectionNumber(min = 1, max = 30, stepwidth = 1, default = 8, wraparound = True)
 	config.crash.sizeloglimit = ConfigSelectionNumber(min = 1, max = 20, stepwidth = 1, default = 10, wraparound = True)
 
-	debugpath = [('/home/root/logs/', '/home/root/')]
+	debugpath = [('/media/hdd/', '/home/root/')]
 	for p in harddiskmanager.getMountedPartitions():
 		d = os.path.normpath(p.mountpoint)
 		if os.path.exists(p.mountpoint):
 			if p.mountpoint != '/':
 				debugpath.append((d + '/logs/', p.mountpoint))
-	config.crash.debug_path = ConfigSelection(default = "/home/root/logs/", choices = debugpath)
+	config.crash.debug_path = ConfigSelection(default = "/media/hdd/", choices = debugpath)
 
 	def updatedebug_path(configElement):
 		if not os.path.exists(config.crash.debug_path.getValue()):
