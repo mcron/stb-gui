@@ -4,6 +4,13 @@ from enigma import eAVSwitch, getDesktop, getBoxType
 from SystemInfo import SystemInfo
 import os
 
+try:
+	file = open("/proc/stb/info/boxtype", "r")
+	model = file.readline().strip()
+	file.close()
+except:
+	model = "unknown"
+
 class AVSwitch:
 	def setInput(self, input):
 		INPUT = { "ENCODER": 0, "SCART": 1, "AUX": 2 }
@@ -19,21 +26,50 @@ class AVSwitch:
 		eAVSwitch.getInstance().setVideomode(value)
 
 	def getOutputAspect(self):
-		valstr = config.av.aspectratio.getValue()
-		if valstr in ("4_3_letterbox", "4_3_panscan"): # 4:3
-			return (4,3)
-		elif valstr == "16_9": # auto ... 4:3 or 16:9
-			try:
-				aspect_str = open("/proc/stb/vmpeg/0/aspect", "r").read()
-				if aspect_str == "1": # 4:3
-					return (4,3)
-			except IOError:
+		if os.path.exists('/usr/lib/enigma2/python/Plugins/SystemPlugins/Videomode/VideoHardware.pyo'):
+			from Plugins.SystemPlugins.Videomode.VideoHardware import video_hw
+			ret = (16,9)
+			port = config.av.videoport.getValue()
+			if port not in config.av.videomode:
+				print "current port not available in getOutputAspect!!! force 16:9"
+			else:
+				mode = config.av.videomode[port].getValue()
+				force_widescreen = video_hw.isWidescreenMode(port, mode)
+				is_widescreen = force_widescreen or config.av.aspect.getValue() in ("16_9", "16_10")
+				is_auto = config.av.aspect.getValue() == "auto"
+				if is_widescreen:
+					if force_widescreen:
+						pass
+					else:
+						aspect = {"16_9": "16:9", "16_10": "16:10"}[config.av.aspect.getValue()]
+						if aspect == "16:10":
+							ret = (16,10)
+				elif is_auto:
+					try:
+						aspect_str = open("/proc/stb/vmpeg/0/aspect", "r").read()
+						if aspect_str == "1": # 4:3
+							ret = (4,3)
+					except IOError:
+						pass
+				else:  # 4:3
+					ret = (4,3)
+			return ret
+		else:
+			valstr = config.av.aspectratio.getValue()
+			if valstr in ("4_3_letterbox", "4_3_panscan"): # 4:3
+				return (4,3)
+			elif valstr == "16_9": # auto ... 4:3 or 16:9
+				try:
+					aspect_str = open("/proc/stb/vmpeg/0/aspect", "r").read()
+					if aspect_str == "1": # 4:3
+						return (4,3)
+				except IOError:
+					pass
+			elif valstr in ("16_9_always", "16_9_letterbox"): # 16:9
 				pass
-		elif valstr in ("16_9_always", "16_9_letterbox"): # 16:9
-			pass
-		elif valstr in ("16_10_letterbox", "16_10_panscan"): # 16:10
-			return (16,10)
-		return (16,9)
+			elif valstr in ("16_10_letterbox", "16_10_panscan"): # 16:10
+				return (16,10)
+			return (16,9)
 
 	def getFramebufferScale(self):
 		aspect = self.getOutputAspect()
@@ -67,7 +103,11 @@ class AVSwitch:
 
 def InitAVSwitch():
 	config.av = ConfigSubsection()
-	config.av.yuvenabled = ConfigBoolean(default=True)
+	config.av.osd_alpha = ConfigSlider(default=255, limits=(0,255)) # Make openATV compatible with some plugins who still use config.av.osd_alpha
+	if getBoxType() == 'vuduo' or getBoxType().startswith('ixuss'):	
+		config.av.yuvenabled = ConfigBoolean(default=False)
+	else:	
+		config.av.yuvenabled = ConfigBoolean(default=True)
 	colorformat_choices = {"cvbs": _("CVBS"), "rgb": _("RGB"), "svideo": _("S-Video")}
 
 	# when YUV is not enabled, don't let the user select it
@@ -129,7 +169,12 @@ def InitAVSwitch():
 	iAVSwitch = AVSwitch()
 
 	def setColorFormat(configElement):
-		map = {"cvbs": 0, "rgb": 1, "svideo": 2, "yuv": 3}
+		if getBoxType() == 'et6x00':
+			map = {"cvbs": 3, "rgb": 3, "svideo": 2, "yuv": 3}	
+		elif getBoxType() == 'gbquad' or getBoxType().startswith('et'):
+			map = {"cvbs": 0, "rgb": 3, "svideo": 2, "yuv": 3}
+		else:
+			map = {"cvbs": 0, "rgb": 1, "svideo": 2, "yuv": 3}
 		iAVSwitch.setColorFormat(map[configElement.getValue()])
 
 	def setAspectRatio(configElement):
@@ -142,15 +187,21 @@ def InitAVSwitch():
 
 	def setWSS(configElement):
 		iAVSwitch.setAspectWSS()
-
-	# this will call the "setup-val" initial
+	
 	config.av.colorformat.addNotifier(setColorFormat)
-	config.av.aspectratio.addNotifier(setAspectRatio)
-	config.av.tvsystem.addNotifier(setSystem)
-	config.av.wss.addNotifier(setWSS)
-
+	if not os.path.exists('/usr/lib/enigma2/python/Plugins/SystemPlugins/Videomode/VideoHardware.pyo'):
+		# this will call the "setup-val" initial
+		config.av.aspectratio.addNotifier(setAspectRatio)
+		config.av.tvsystem.addNotifier(setSystem)
+		config.av.wss.addNotifier(setWSS)
+	
 	iAVSwitch.setInput("ENCODER") # init on startup
-	SystemInfo["ScartSwitch"] = eAVSwitch.getInstance().haveScartSwitch()
+	if getBoxType() == 'gbquad' or getBoxType() == 'et5x00' or getBoxType() == 'ixussone' or getBoxType() == 'ixusszero' or model == 'et6000' or getBoxType() == 'e3hd' or getBoxType() == 'odinm6' or getBoxType() == 'omtimussos1' or getBoxType() == 'omtimussos2' or getBoxType() == 'gb800seplus' or getBoxType() == 'gb800ueplus':
+		detected = False
+	else:
+		detected = eAVSwitch.getInstance().haveScartSwitch()
+	
+	SystemInfo["ScartSwitch"] = detected
 
 	if os.path.exists("/proc/stb/hdmi/bypass_edid_checking"):
 		f = open("/proc/stb/hdmi/bypass_edid_checking", "r")
@@ -197,6 +248,26 @@ def InitAVSwitch():
 	else:
 		config.av.surround_3d = ConfigNothing()
 
+	if os.path.exists("/proc/stb/audio/avl_choices"):
+		f = open("/proc/stb/audio/avl_choices", "r")
+		can_autovolume = f.read().strip().split(" ")
+		f.close()
+	else:
+		can_autovolume = False
+
+	SystemInfo["CanAutoVolume"] = can_autovolume
+
+	if can_autovolume:
+		def setAutoVulume(configElement):
+			f = open("/proc/stb/audio/avl", "w")
+			f.write(configElement.value)
+			f.close()
+		choice_list = [("none", _("off")), ("hdmi", _("HDMI")), ("spdif", _("SPDIF")), ("dac", _("DAC"))]
+		config.av.autovolume = ConfigSelection(choices = choice_list, default = "none")
+		config.av.autovolume.addNotifier(setAutoVulume)
+	else:
+		config.av.autovolume = ConfigNothing()
+
 	try:
 		f = open("/proc/stb/audio/ac3_choices", "r")
 		file = f.read()[:-1]
@@ -229,7 +300,7 @@ def InitAVSwitch():
 				print "couldn't write pep_scaler_sharpness"
 
 		if getBoxType() == 'gbquad':
-			config.av.scaler_sharpness = ConfigSlider(default=5, limits=(0,26))
+			config.av.scaler_sharpness = ConfigSlider(default=13, limits=(0,26))
 		else:
 			config.av.scaler_sharpness = ConfigSlider(default=13, limits=(0,26))
 		config.av.scaler_sharpness.addNotifier(setScaler_sharpness)
