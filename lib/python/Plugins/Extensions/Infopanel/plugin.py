@@ -278,7 +278,7 @@ class Infopanel(Screen, InfoBarPiP):
 		self.Mlist = []
 		if Check_Softcam():
 			self.Mlist.append(MenuEntryItem((InfoEntryComponent('SoftcamPanel'), _("SoftcamPanel"), 'SoftcamPanel')))
-			self.Mlist.append(MenuEntryItem((InfoEntryComponent('Softcam-Panel Setup'), _("Softcam-Panel Setup"), 'Softcam-Panel Setup')))
+			self.Mlist.append(MenuEntryItem((InfoEntryComponent('Softcam-PanelSetup'), _("Softcam-PanelSetup"), 'Softcam-PanelSetup')))
 		#self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software update"), ("software-update"))))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software Manager"), ("software-manager"))))
 		#self.Mlist.append(MenuEntryItem((InfoEntryComponent('RedPanel'), _("RedPanel"), 'RedPanel')))
@@ -442,7 +442,7 @@ class Infopanel(Screen, InfoBarPiP):
 			self.session.open(RedPanel)
 		elif menu == "Yellow-Key-Action":
 			self.session.open(YellowPanel)
-		elif menu == "Softcam-Panel Setup":
+		elif menu == "Softcam-PanelSetup":
 			self.session.open(ShowSoftcamPanelExtensions)
 		elif menu == "KeymapSel":
 			self.session.open(KeymapSel)
@@ -850,8 +850,8 @@ class ShowSoftcamPanelExtensions(ConfigListScreen, Screen):
 		Screen.__init__(self, session)
 		self.session = session
 		self.skinName = "Setup"
-		Screen.setTitle(self, _("Softcam-Panel Setup") + "...")
-		self.setup_title = _("Softcam-Panel Setup") + "..."
+		Screen.setTitle(self, _("Softcam-PanelSetup") + "...")
+		self.setup_title = _("Softcam-PanelSetup") + "..."
 		self["HelpWindow"] = Pixmap()
 		self["HelpWindow"].hide()
 		self["status"] = StaticText()
