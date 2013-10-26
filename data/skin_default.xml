@@ -1,5 +1,5 @@
 ﻿<skin>
-	<!--	Skin: Default-ViX Vs 0.11 by Andy Blackburn. @www.world-of-satellite.com,  based on ViX Night	-->
+	<!--	Skin: Default-ViX Vs 0.26 by Andy Blackburn. @www.world-of-satellite.com,  based on ViX Night	-->
 	<!--	This skin is a Freeware. Everyone can modify and use it in other images.	-->
 	<!--	BUT DO NOT REMOVE OR CHANGE THIS HEADER !!!	-->
 	<!--	Do whatever you want with this skin,but don't tell it's yours,or your idea, and leave the credentials in the "About-box" as they are	-->
@@ -235,16 +235,21 @@
 		<widget source="session.CurrentService" render="Label" position="44,6" size="625,34" font="Boldit;30" foregroundColor="infobar_service_frgrnd" backgroundColor="infobar-bkgrnd" transparent="1" valign="top" halign="left" noWrap="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
-		<ePixmap pixmap="icons/icon_update_off.png" position="689,12" size="20,20" zPosition="0" alphatest="blend" />
-		<widget source="global.OnlineStableUpdateState" render="Pixmap" pixmap="icons/icon_stableupdate.png" position="689,12" size="20,20" zPosition="1" alphatest="blend">
+		<ePixmap pixmap="icons/icon_update_off.png" position="650,12" size="20,20" zPosition="0" alphatest="blend" />
+		<widget source="global.OnlineStableUpdateState" render="Pixmap" pixmap="icons/icon_stableupdate.png" position="650,12" size="20,20" zPosition="1" alphatest="blend" >
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<widget source="global.OnlineUnstableUpdateState" render="Pixmap" pixmap="icons/icon_unstableupdate.png" position="689,12" size="20,20" zPosition="1" alphatest="blend">
+		<widget source="global.OnlineUnstableUpdateState" render="Pixmap" pixmap="icons/icon_unstableupdate.png" position="650,12" size="20,20" zPosition="1" alphatest="blend" >
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<ePixmap pixmap="icons/icon_rec_off.png" position="713,13" size="31,17" zPosition="0" alphatest="blend" />
-		<widget source="session.RecordState" render="Pixmap" pixmap="icons/icon_rec.png" position="713,13" size="31,17" zPosition="1" alphatest="blend">
+		<ePixmap pixmap="icons/icon_rec_off.png" position="673,13" size="31,17" zPosition="0" alphatest="blend" />
+		<widget source="session.RecordState" render="Pixmap" pixmap="icons/icon_rec.png" position="674,13" size="31,17" zPosition="1" alphatest="blend">
 			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+		<ePixmap pixmap="icons/ico_sub_off.png" position="712,11" size="30,20" zPosition="0" alphatest="blend" />
+		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_sub_on.png" position="712,11" size="30,20" zPosition="2" alphatest="on">
+			<convert type="ServiceInfo">SubservicesAvailable</convert>
+			<convert type="ConditionalShowHide" />
 		</widget>
 		<ePixmap pixmap="icons/ico_hbbtv_off.png" position="747,12" size="46,17" zPosition="0" alphatest="blend" />
 		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_hbbtv_on.png" position="747,12" size="46,17" zPosition="1" alphatest="blend">
@@ -286,8 +291,8 @@
 		<widget source="global.CurrentTime" render="Label" position="817,77" zPosition="1" size="115,18" font="Regular;18" foregroundColor="infobar-frgrnd" backgroundColor="infobar-bkgrnd" transparent="1" noWrap="1" halign="center" valign="top">
 			<convert type="ClockToText">Format:%a %d/%m/%y</convert>
 		</widget>
-		<widget source="session.CurrentService" render="PiconBg" position="43,44" size="102,62" transparent="0" alphatest="blend" />
-		<widget source="session.CurrentService" render="Picon" position="44,46" size="100,60" transparent="0" alphatest="blend">
+		<widget source="session.CurrentService" render="PiconBg" position="43,44" size="104,63" transparent="0" alphatest="blend" />
+		<widget source="session.CurrentService" render="Picon" position="45,45" size="100,60" transparent="0" alphatest="blend">
 			<convert type="ServiceName">Reference</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Progress" position="153,40" size="647,35" pixmap="infobar/infobareventprogress.png" backgroundColor="infobar_sunken" transparent="1" zPosition="0" alphatest="blend">
@@ -372,23 +377,28 @@
 		<widget source="session.CurrentService" render="Label" position="44,165" size="625,34" font="Boldit;30" foregroundColor="infobar_service_frgrnd" backgroundColor="infobar-bkgrnd" transparent="1" valign="top" halign="left" noWrap="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
-		<widget source="session.CurrentService" render="PiconBg" position="43,246" size="102,62" transparent="0" alphatest="blend" zPosition="1" />
-		<widget source="session.CurrentService" render="Picon" position="44,248" size="100,60" transparent="0" alphatest="blend" zPosition="2">
+		<widget source="session.CurrentService" render="PiconBg" position="43,246" size="104,63" transparent="0" alphatest="blend" zPosition="1" />
+		<widget source="session.CurrentService" render="Picon" position="45,247" size="100,60" transparent="0" alphatest="blend" zPosition="2" >
 			<convert type="ServiceName">Reference</convert>
 		</widget>
-		<widget source="session.CurrentService" render="Label" position="495,172" size="60,20" font="Bold;17" foregroundColor="infobar-frgrnd-on" backgroundColor="infobar-bkgrnd" transparent="1" halign="center">
+		<widget source="session.CurrentService" render="Label" position="460,172" size="60,20" font="Bold;17" foregroundColor="infobar-frgrnd-on" backgroundColor="infobar-bkgrnd" transparent="1" halign="center" >
 			<convert type="PliExtraInfo">OrbitalPosition</convert>
 		</widget>
-		<ePixmap pixmap="icons/icon_update_off.png" position="559,171" size="20,20" zPosition="0" alphatest="blend" />
-		<widget source="global.OnlineStableUpdateState" render="Pixmap" pixmap="icons/icon_stableupdate.png" position="559,171" size="20,20" zPosition="1" alphatest="blend">
+		<ePixmap pixmap="icons/icon_update_off.png" position="520,171" size="20,20" zPosition="0" alphatest="blend" />
+		<widget source="global.OnlineStableUpdateState" render="Pixmap" pixmap="icons/icon_stableupdate.png" position="520,171" size="20,20" zPosition="1" alphatest="blend" >
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<widget source="global.OnlineUnstableUpdateState" render="Pixmap" pixmap="icons/icon_unstableupdate.png" position="559,171" size="20,20" zPosition="1" alphatest="blend">
+		<widget source="global.OnlineUnstableUpdateState" render="Pixmap" pixmap="icons/icon_unstableupdate.png" position="520,171" size="20,20" zPosition="1" alphatest="blend" >
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<ePixmap pixmap="icons/icon_rec_off.png" position="583,172" size="31,17" zPosition="0" alphatest="blend" />
-		<widget source="session.RecordState" render="Pixmap" pixmap="icons/icon_rec.png" position="583,172" size="31,17" zPosition="1" alphatest="blend">
+		<ePixmap pixmap="icons/icon_rec_off.png" position="545,172" size="31,17" zPosition="0" alphatest="blend" />
+		<widget source="session.RecordState" render="Pixmap" pixmap="icons/icon_rec.png" position="545,172" size="31,17" zPosition="1" alphatest="blend">
 			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+		<ePixmap pixmap="icons/ico_sub_off.png" position="583,171" size="30,20" zPosition="0" alphatest="blend" />
+		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_sub_on.png" position="583,171" size="30,20" zPosition="2" alphatest="on">
+			<convert type="ServiceInfo">SubservicesAvailable</convert>
+			<convert type="ConditionalShowHide" />
 		</widget>
 		<ePixmap pixmap="icons/ico_hbbtv_off.png" position="617,171" size="46,17" zPosition="0" alphatest="blend" />
 		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_hbbtv_on.png" position="617,171" size="46,17" zPosition="1" alphatest="blend">
@@ -717,8 +727,8 @@
 		<widget source="global.CurrentTime" render="Label" position="700,16" zPosition="1" size="115,20" font="Regular;18" foregroundColor="infobar-frgrnd" halign="center" backgroundColor="infobar-bkgrnd" transparent="1" noWrap="1" valign="top">
 			<convert type="ClockToText">Format:%a %d/%m/%y</convert>
 		</widget>
-		<widget source="session.CurrentService" render="PiconBg" position="43,88" size="102,62" transparent="0" alphatest="blend" />
-		<widget source="session.CurrentService" render="Picon" position="44,90" size="100,60" transparent="0" alphatest="blend">
+		<widget source="session.CurrentService" render="PiconBg" position="43,88" size="104,63" transparent="0" alphatest="blend" />
+		<widget source="session.CurrentService" render="Picon" position="45,89" size="100,60" transparent="0" alphatest="blend">
 			<convert type="ServiceName">Reference</convert>
 		</widget>
 		<ePixmap pixmap="infobar/statusbar_bkgrd.png" position="686,50" size="100,10" zPosition="0" alphatest="blend" />
@@ -812,16 +822,21 @@
 		<widget source="Service" render="Label" position="44,153" size="625,34" font="Boldit;30" foregroundColor="infobar_service_frgrnd" backgroundColor="infobar-bkgrnd" transparent="1" valign="top" halign="left" noWrap="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
-		<ePixmap pixmap="icons/icon_update_off.png" position="689,159" size="20,20" zPosition="0" alphatest="blend" />
-		<widget source="global.OnlineStableUpdateState" render="Pixmap" pixmap="icons/icon_stableupdate.png" position="689,159" size="20,20" zPosition="1" alphatest="blend">
+		<ePixmap pixmap="icons/icon_update_off.png" position="650,158" size="20,20" zPosition="0" alphatest="blend" />
+		<widget source="global.OnlineStableUpdateState" render="Pixmap" pixmap="icons/icon_stableupdate.png" position="650,158" size="20,20" zPosition="1" alphatest="blend" >
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<widget source="global.OnlineUnstableUpdateState" render="Pixmap" pixmap="icons/icon_unstableupdate.png" position="689,159" size="20,20" zPosition="1" alphatest="blend">
+		<widget source="global.OnlineUnstableUpdateState" render="Pixmap" pixmap="icons/icon_unstableupdate.png" position="650,158" size="20,20" zPosition="1" alphatest="blend" >
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<ePixmap pixmap="icons/icon_rec_off.png" position="713,160" size="31,162" zPosition="0" alphatest="blend" />
-		<widget source="session.RecordState" render="Pixmap" pixmap="icons/icon_rec.png" position="715,160" size="31,162" zPosition="1" alphatest="blend">
+		<ePixmap pixmap="icons/icon_rec_off.png" position="673,159" size="31,17" zPosition="0" alphatest="blend" />
+		<widget source="session.RecordState" render="Pixmap" pixmap="icons/icon_rec.png" position="673,159" size="31,17" zPosition="1" alphatest="blend">
 			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+		<ePixmap pixmap="icons/ico_sub_off.png" position="712,158" size="30,20" zPosition="0" alphatest="blend" />
+		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_sub_on.png" position="712,158" size="30,20" zPosition="2" alphatest="on">
+			<convert type="ServiceInfo">SubservicesAvailable</convert>
+			<convert type="ConditionalShowHide" />
 		</widget>
 		<ePixmap pixmap="icons/ico_hbbtv_off.png" position="747,159" size="46,162" zPosition="0" alphatest="blend" />
 		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_hbbtv_on.png" position="749,159" size="46,162" zPosition="1" alphatest="blend">
@@ -863,8 +878,8 @@
 		<widget source="global.CurrentTime" render="Label" position="817,224" zPosition="1" size="115,18" font="Regular;18" foregroundColor="infobar-frgrnd" backgroundColor="infobar-bkgrnd" transparent="1" noWrap="1" halign="center" valign="top">
 			<convert type="ClockToText">Format:%a %d/%m/%y</convert>
 		</widget>
-		<widget source="Service" render="PiconBg" position="43,191" size="102,62" transparent="0" alphatest="blend" />
-		<widget source="Service" render="Picon" position="44,193" size="100,60" transparent="0" alphatest="blend">
+		<widget source="Service" render="PiconBg" position="43,191" size="104,63" transparent="0" alphatest="blend" />
+		<widget source="Service" render="Picon" position="45,192" size="100,60" transparent="0" alphatest="blend">
 			<convert type="ServiceName">Reference</convert>
 		</widget>
 		<widget source="Event" render="Progress" position="152,187" size="647,35" pixmap="infobar/infobareventprogress.png" backgroundColor="infobar_sunken" transparent="1" zPosition="0">
@@ -1088,8 +1103,10 @@
 		<widget source="Adapter" render="Label" position="180,410" size="235,21" zPosition="10" backgroundColor="window-bg" font="Regular;19" transparent="0" />
 		<ePixmap pixmap="div-h.png" position="10,460" zPosition="1" size="503,2" />
 		<widget source="introduction2" render="Label" position="10,465" size="503,30" font="Regular;19" halign="center" valign="center" backgroundColor="window-bg" transparent="1" />
-		<widget name="VKeyIcon" pixmap="buttons/key_text.png" position="280,513" zPosition="1" size="35,25" transparent="1" alphatest="on" />
 		<widget name="HelpWindow" pixmap="buttons/vkey_icon.png" position="100,249" zPosition="1" size="1,1" transparent="1" alphatest="on" />
+		<widget source="VKeyIcon" render="Pixmap" pixmap="buttons/key_text.png" position="100,249" zPosition="1" size="35,25" transparent="1" alphatest="on">
+			<convert type="ConditionalShowHide" />
+		</widget>
 		<panel name="MenuRed2Panel" />
 		<panel name="MenuGreen2Panel" />
 		<panel name="MenuBlue2Panel" />
@@ -1116,6 +1133,14 @@
 		<panel name="MenuRed4Panel" />
 		<panel name="MenuGreen4Panel" />
 		<panel name="MenuBlue4nPanel" />
+		<widget name="config" position="5,50" size="550,280" scrollbarMode="showOnDemand" />
+		<ePixmap pixmap="div-h.png" position="0,340" zPosition="1" size="560,2" />
+		<widget source="introduction" render="Label" position="0,350" size="560,50" zPosition="10" font="Regular;21" halign="center" valign="center" backgroundColor="#25062748" transparent="1" />
+	</screen>
+	<!-- Mac-adress -->
+	<screen name="NetworkMacSetup" position="center,center" size="560,400" title="MAC-adress setup">
+		<panel name="MenuRed4Panel" />
+		<panel name="MenuGreen4Panel" />
 		<widget name="config" position="5,50" size="550,280" scrollbarMode="showOnDemand" />
 		<ePixmap pixmap="div-h.png" position="0,340" zPosition="1" size="560,2" />
 		<widget source="introduction" render="Label" position="0,350" size="560,50" zPosition="10" font="Regular;21" halign="center" valign="center" backgroundColor="#25062748" transparent="1" />
@@ -1228,10 +1253,6 @@
 	</screen>
 	<screen name="ChannelSelection" position="0,0" size="1280,720" backgroundColor="black" flags="wfNoBorder">
 		<panel name="FullscreenTopPanel" />
-		<widget source="ServiceEvent" render="PiconBg" position="18,8" size="102,62"  zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd"  />
-		<widget source="ServiceEvent" render="Picon" position="20,10" size="100,60" zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd">
-			<convert type="ServiceName">Reference</convert>
-		</widget>
 		<widget source="Title" render="Label" position="135,25" size="800,43" font="Boldit;32" transparent="1" foregroundColor="fullscreen-topbar-frgrnd" backgroundColor="fullscreen-topbar-bkgrnd" zPosition="1" />
 		<panel name="FullscreenPIGPanel" />
 		<widget name="list" position="10,82" size="660,590" backgroundColor="black" foregroundColorEvent="event-frgrnd" foregroundColorEventSelected="#00202020" foregroundColorServiceNotAvail="verydarkgrey" serviceItemHeight="36" serviceNumberFont="Regular;25" serviceNameFont="Regular;25" serviceInfoFont="Bold;22" transparent="0" zPosition="3" scrollbarMode="showOnDemand" />
@@ -1311,9 +1332,16 @@
 self.autoResize()
 		</applet>
 	</screen>
-	<screen name="RecordTimerQuestion" position="center,center" size="240,70" zPosition="5" flags="wfNoBorder" >
+	<screen name="RecordTimerQuestion" position="center,center" size="380,70" zPosition="5" flags="wfNoBorder" >
+		<widget name="text" position="0,0" size="0,0" font="Regular;22" />
+		<widget name="list" position="10,10" size="360,50" enableWrapAround="1" />
+	</screen>
+	<screen name="RemoveTimerQuestion" position="center,center" size="503,130" zPosition="5" flags="wfNoBorder" >
 		<widget name="text" position="0,0" size="0,0" font="Regular;22" />
 		<widget name="list" position="10,10" size="220,50" enableWrapAround="1" />
+		<applet type="onLayoutFinish">
+self.autoResize()
+		</applet>
 	</screen>
 	<screen name="MMIDialog" position="center,center" size="450,270">
 		<widget name="title" position="10,10" size="430,25" font="Regular;23" transparent="0" />
@@ -1336,23 +1364,25 @@ self.autoResize()
 	<screen name="configTest" position="490,240" size="300,240">
 		<widget name="config" position="10,10" size="280,220" transparent="0" />
 	</screen>
-	<screen name="Dish" flags="wfNoBorder" position="20,20" size="150,200" zPosition="-1" backgroundColor="transparent">
+	<screen name="Dish" flags="wfNoBorder" position="20,20" size="150,250" zPosition="-1" backgroundColor="transparent">
 		<widget name="Dishpixmap" position="0,0" size="130,160" zPosition="-1" pixmap="icons/dish.png" transparent="1" alphatest="on" />
 		<widget name="turnTime" position="25,0" size="120,20" zPosition="1" font="Regular;20" halign="right" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
-		<widget name="From" position="0,163" size="50,17" zPosition="1" font="Regular;17" halign="right" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
-		<widget name="posFrom" position="57,160" size="70,20" zPosition="1" font="Regular;20" halign="left" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
-		<widget name="Goto" position="0,183" size="50,17" zPosition="1" font="Regular;17" halign="right" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
-		<widget name="posGoto" position="57,180" size="70,20" zPosition="1" font="Regular;20" halign="left" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
+		<widget name="From" position="0,160" size="55,20" zPosition="1" font="Regular;17" halign="right" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
+		<widget name="posFrom" position="62,160" size="70,20" zPosition="1" font="Regular;20" halign="left" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
+		<widget name="Goto" position="0,182" size="55,20" zPosition="1" font="Regular;17" halign="right" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
+		<widget name="posGoto" position="62,182" size="70,20" zPosition="1" font="Regular;20" halign="left" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
+		<widget name="Tuner" position="0,204" size="55,20" zPosition="2" font="Regular;18" halign="left" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
+		<widget name="tunerName" position="62,204" size="70,20" zPosition="2" font="Regular;18" halign="left" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
+		<widget name="turnSpeed" position="62,224" size="120,20" zPosition="2" font="Regular;18" halign="left" foregroundColor="white" borderWidth="1" borderColor="black" transparent="1" />
 	</screen>
 	<screen name="UnhandledKey" flags="wfNoBorder" position="1162,20" size="98,88" zPosition="100" backgroundColor="transparent">
 		<widget name="UnhandledKeyPixmap" pixmap="screens/unhandled-key.png" position="0,0" size="98,88" alphatest="off" />
 	</screen>
-
 <!-- EPG Screens -->
 	<screen name="EPGSelection" position="0,0" size="1280,720" backgroundColor="black" transparent="0" flags="wfNoBorder">
 		<panel name="FullscreenTopPanel" />
-		<widget source="Service" render="PiconBg" position="18,8" size="102,62"  zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd"  />
-		<widget source="Service" render="Picon" position="20,10" size="100,60" zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd">
+		<widget source="Service" render="PiconBg" position="18,8" size="104,63" zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd"  />
+		<widget source="Service" render="Picon" position="20,9" size="100,60" zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd" >
 			<convert type="ServiceName">Reference</convert>
 		</widget>
 		<widget source="Title" render="Label" position="135,25" size="800,43" font="Boldit;32" transparent="1" foregroundColor="fullscreen-topbar-frgrnd" backgroundColor="fullscreen-topbar-bkgrnd" zPosition="1" />
@@ -1370,8 +1400,8 @@ self.autoResize()
 	</screen>
 	<screen name="EPGSelectionMulti" position="0,0" size="1280,720" backgroundColor="black" transparent="0" flags="wfNoBorder">
 		<panel name="FullscreenTopPanel" />
-		<widget source="Service" render="PiconBg" position="18,8" size="102,62"  zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd"  />
-		<widget source="Service" render="Picon" position="20,10" size="100,60" zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd">
+		<widget source="Service" render="PiconBg" position="18,8" size="104,63" zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd"  />
+		<widget source="Service" render="Picon" position="20,9" size="100,60" zPosition="5" alphatest="blend" backgroundColor="fullscreen-topbar-bkgrnd" >
 			<convert type="ServiceName">Reference</convert>
 		</widget>
 		<widget source="Title" render="Label" position="135,25" size="800,43" font="Boldit;32" transparent="1" foregroundColor="fullscreen-topbar-frgrnd" backgroundColor="fullscreen-topbar-bkgrnd" zPosition="1" />
@@ -1635,7 +1665,7 @@ self.autoResize()
 		<panel name="FullscreenYellow1Panel" />
 		<panel name="FullscreenBlue1Panel" />
 		<widget name="movie_sort" position="1150,690" size="35,20" pixmaps="icons/az.png,icons/newtop.png,icons/shuffle.png,icons/za.png,icons/oldtop.png,icons/faz.png,icons/fza.png" zPosition="10" transparent="1" alphatest="on"/>
-		<widget name="movie_off" position="1190,690" size="35,20" pixmaps="icons/ask.png,icons/movielist.png,icons/quit.png,icons/pause.png,icons/playlist.png,icons/playlistquit.png,icons/loop.png" zPosition="10" transparent="1" alphatest="on"/>
+		<widget name="movie_off" position="1190,690" size="35,20" pixmaps="icons/ask.png,icons/movielist.png,icons/quit.png,icons/pause.png,icons/playlist.png,icons/playlistquit.png,icons/loop.png,icons/rep.png" zPosition="10" transparent="1" alphatest="on"/>
 	</screen>
 	<screen name="MovieSelectionSlim" position="center,center" size="560,550">
 		<widget name="freeDiskSpace" position="10,30" size="410,28" font="Regular;22" halign="right" transparent="1" foregroundColor="menu-title-frgrnd" backgroundColor="menu-time-bkgrnd" />
@@ -1657,7 +1687,7 @@ self.autoResize()
 		<panel name="MenuYellow1Panel" />
 		<panel name="MenuBlue1Panel" />
 		<widget name="movie_sort" position="3,665" size="35,20" pixmaps="icons/az.png,icons/newtop.png,icons/shuffle.png,icons/za.png,icons/oldtop.png,icons/faz.png,icons/fza.png" zPosition="10" transparent="1" alphatest="on"/>
-		<widget name="movie_off" position="3,692" size="35,20" pixmaps="icons/ask.png,icons/movielist.png,icons/quit.png,icons/pause.png,icons/playlist.png,icons/playlistquit.png,icons/loop.png" zPosition="10" transparent="1" alphatest="on"/>
+		<widget name="movie_off" position="3,692" size="35,20" pixmaps="icons/ask.png,icons/movielist.png,icons/quit.png,icons/pause.png,icons/playlist.png,icons/playlistquit.png,icons/loop.png,icons/rep.png" zPosition="10" transparent="1" alphatest="on"/>
 	</screen>
 	<screen name="MovieListTags" position="center,center" size="560,550">
 		<widget name="list" position="0,0" size="560,536" itemHeight="25" font="Regular;22" foregroundColor="window-fg" backgroundColor="window-bg" transparent="0" scrollbarMode="showOnDemand" enableWrapAround="1" />
@@ -1689,15 +1719,19 @@ self.autoResize()
 		<widget name="number" position="0,0" size="434,50" backgroundColor="transparent" transparent="1" font="Regular;48" borderColor="black" borderWidth="2" valign="center" halign="center" />
 		<widget name="servicename" position="0,40" size="434,60" backgroundColor="transparent" transparent="1" font="Regular;30" borderColor="black" borderWidth="2" valign="center" halign="center" />
 	</screen>
-	<screen name="HistoryZapSelector" position="center,center" size="350,240">
-		<widget source="menu" render="Listbox" position="0,10" size="350,220" scrollbarMode="showOnDemand">
+	<screen name="HistoryZapSelector" position="center,center" size="620,300" >
+		<widget source="menu" render="Listbox" position="0,0" size="620,300" scrollbarMode="showOnDemand" >
 			<convert type="TemplatedMultiContent">
 				{"template": [
-						MultiContentEntryText(pos = (10, 0), size = (20, 22), flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, text = 1),
-						MultiContentEntryText(pos = (40, 0), size = (290, 22), font = 1, flags = RT_HALIGN_LEFT, text = 2)
+						MultiContentEntryText(pos = (95, 0), size = (10, 60), font = 2, flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, text = 1),
+						MultiContentEntryText(pos = (115, 0), size = (260, 21), font = 1, flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x00ffffff, color_sel = 0x00000000),
+						MultiContentEntryText(pos = (115, 20), size = (270, 22), font = 2, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3, color = 0x00ffc000, color_sel = 0x00000000),
+						MultiContentEntryText(pos = (115, 40), size = (180, 17), font = 3, flags = RT_HALIGN_LEFT, text = 5, color = 0x00999999, color_sel = 0x00000000),
+						MultiContentEntryText(pos = (285, 5), size = (335, 50), font = 3, flags = RT_HALIGN_LEFT|RT_WRAP, text = 4, color = 0x00999999, color_sel = 0x00000000),
+						MultiContentEntryPixmapAlphaBlend(pos=(0, 5), size=(83, 50), png=6, flags = BT_SCALE)
 					],
-				 "fonts": [gFont("Regular", 22), gFont("Regular", 20)],
-				 "itemHeight": 22
+				 "fonts": [gFont("Regular", 22), gFont("Regular", 20), gFont("Regular", 17), gFont("Regular", 16)],
+				 "itemHeight": 60
 				}
 			</convert>
 		</widget>
@@ -1788,18 +1822,14 @@ self.autoResize()
 		<eLabel text="9" position="5,250" size="16,25" font="Regular;21" foregroundColor="black" backgroundColor="transpWhite" />
 		<widget name="subpages_9" position="35,250" size="36,20" alphatest="on" />
 	</screen>
-	<screen name="RdsInfoDisplay" position="0,0" size="1280,720" zPosition="-2" backgroundColor="transparent" flags="wfNoBorder">
+	<screen name="RdsInfoDisplay" position="0,60" size="1280,200" zPosition="-2" backgroundColor="transparent" flags="wfNoBorder">
 		<widget name="RassLogo" pixmap="icons/rass_logo.png" position="100,585" size="50,21" />
-		<widget name="RadioText" position="100,620" size="1080,30" font="Regular;24" noWrap="1" backgroundColor="transpBlack" />
-		<widget name="RtpText" position="100,650" size="1080,30" font="Regular;24" halign="right" noWrap="1" backgroundColor="transpBlack" />
+		<widget name="RadioText" position="0,0" size="1280,90" font="LCD;30" noWrap="1" foregroundColor="yellow" backgroundColor="transpBlack" valign="center" halign="center" borderColor="black" borderWidth="4"/>
+		<widget name="RtpText" position="0,100" size="1280,90" font="LCD;30" noWrap="1" backgroundColor="yellow" valign="center" halign="center" borderColor="black" borderWidth="4"/>
 	</screen>
 	<!--  Satfinder  -->
 	<screen name="Satfinder" position="center,center" size="520,450" title="Satfinder">
-		<ePixmap pixmap="buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
-		<ePixmap pixmap="buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
-		<eLabel text="Cancel" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
-		<eLabel text="Scan" position="140,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1"/>
-		<widget name="introduction" position="0,0" size="0,0" font="Regular;23"/>
+		<widget name="introduction" position="0,0" size="200,25" zPosition="1" font="Regular;23"/>
 		<ePixmap pixmap="icons/dish_scan.png" position="5,75" zPosition="0" size="119,110" transparent="1" alphatest="on"/>
 		<widget source="Frontend" render="Label" position="190,60" zPosition="2" size="260,20" font="Regular;19" halign="center" valign="center" transparent="1">
 			<convert type="FrontendInfo">SNRdB</convert>
@@ -1848,6 +1878,39 @@ self.autoResize()
 		<widget name="header" position="0,0" size="0,0" font="Regular;23"/>
 		<widget name="config" position="10,50" size="400,300" scrollbarMode="showOnDemand"/>
 		<widget name="footer" position="0,0" size="0,0"/>
+	</screen>
+	<!-- Positioner setup -->
+	<screen name="PositionerSetup" position="center,center" size="560,400" title="Positioner Setup" >
+		<ePixmap pixmap="buttons/red.png" position="0,0" size="140,40" transparent="1" alphatest="on" />
+		<ePixmap pixmap="buttons/green.png" position="140,0" size="140,40" transparent="1" alphatest="on" />
+		<ePixmap pixmap="buttons/yellow.png" position="280,0" size="140,40" transparent="1" alphatest="on" />
+		<ePixmap pixmap="buttons/blue.png" position="420,0" size="140,40" transparent="1" alphatest="on" />
+		<widget name="key_red" position="0,0" size="140,40" zPosition="1" halign="center" valign="center" font="Regular;20" transparent="1" shadowColor="background" shadowOffset="-2,-2"/>
+		<widget name="key_green" position="140,0" size="140,40" zPosition="1" halign="center" valign="center" font="Regular;20" transparent="1" shadowColor="background" shadowOffset="-2,-2"/>
+		<widget name="key_yellow" position="280,0" size="140,40" zPosition="1" halign="center" valign="center" font="Regular;20" transparent="1" shadowColor="background" shadowOffset="-2,-2"/>
+		<widget name="key_blue" position="420,0" size="140,40" zPosition="1" halign="center" valign="center" font="Regular;20" transparent="1" shadowColor="background" shadowOffset="-2,-2"/>
+		<widget name="list" position="120,50" size="320,215" font="Regular;20" />
+		<widget name="snr_db" position="70,265" size="150,22" halign="center" valign="center" font="Regular;20" foregroundColor="white"/>
+		<eLabel text="SNR:" position="10,290" size="60,22" font="Regular;20" foregroundColor="white"/>
+		<eLabel text="BER:" position="10,315" size="60,22" font="Regular;20" foregroundColor="white"/>
+		<eLabel text="Lock:" position="10,340" size="60,22" font="Regular;20" foregroundColor="white"/>
+		<widget name="snr_percentage" position="230,290" size="60,22" font="Regular;20" foregroundColor="white"/>
+		<widget name="ber_value" position="230,315" size="60,22" font="Regular;20" foregroundColor="white"/>
+		<widget name="lock_state" position="70,340" size="150,22" font="Regular;20" foregroundColor="white"/>
+		<widget name="snr_bar" position="70,290" size="150,22" foregroundColor="white"/>
+		<widget name="ber_bar" position="70,315" size="150,22" foregroundColor="white"/>
+		<eLabel text="Frequency:" position="320,290" size="120,22" font="Regular;20" foregroundColor="white"/>
+		<eLabel text="Polarisation:" position="320,315" size="120,22" font="Regular;20" foregroundColor="white"/>
+		<eLabel text="Symbol rate:" position="320,340" size="120,22" font="Regular;20" foregroundColor="white"/>
+		<widget name="frequency_value" position="440,290" size="120,22" font="Regular;20" foregroundColor="white"/>
+		<widget name="polarisation" position="440,315" size="120,22" font="Regular;20" foregroundColor="white"/>
+		<widget name="symbolrate_value" position="440,340" size="120,22" font="Regular;20" foregroundColor="white"/>
+		<ePixmap alphatest="on" pixmap="icons/clock.png" position="480,382" size="14,14" zPosition="3"/>
+		<widget font="Regular;18" halign="left" position="505,380" render="Label" size="55,20" source="global.CurrentTime" transparent="1" valign="center" zPosition="3">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+		<ePixmap pixmap="div-h.png" position="0,375" size="560,2" />
+		<widget name="status_bar" position="10,380" size="460,20" font="Regular;18" foregroundColor="white"/>
 	</screen>
 	<!--  Fast Scan  -->
 	<screen name="FastScanScreen" position="center,center" size="520,350" title="Fast Scan">
@@ -1945,37 +2008,22 @@ self.autoResize()
 		<widget name="oktext" position="280,0" zPosition="1" size="115,24" font="Regular;19" halign="center" valign="center" transparent="1" />
 		<widget name="config" position="10,40" transparent="0" size="380,150" />
 	</screen>
-	<screen name="PTSTimeshiftState" position="center,40" zPosition="2" size="420,70" backgroundColor="transpBlack" flags="wfNoBorder">
-		<widget name="statusicon" position="12,5" size="20,20" pixmaps="icons/play.png,icons/pause.png,icons/stop.png,icons/forward.png,icons/backward.png,icons/slow.png" zPosition="5" alphatest="on" />
-		<widget name="speed" position="35,7" size="80,15" font="Regular;17" halign="left" foregroundColor="white" backgroundColor="transpBlack" transparent="1" zPosition="5" />
-		<widget source="session.CurrentService" render="Label" position="95,5" size="200,27" font="Regular;20" halign="left" foregroundColor="white" backgroundColor="transpBlack">
+	<screen name="TimeshiftState" position="center,e-248" zPosition="2" size="671,90" backgroundColor="transpBlack" flags="wfNoBorder">
+		<ePixmap position="0,0" zPosition="1" size="671,90" pixmap="screens/pts-bg.png" />
+		<widget source="session.CurrentService" render="Label" position="25,15" size="200,27" font="Regular;20" halign="left" foregroundColor="infobar-frgrnd" backgroundColor="infobar_sunken" zPosition="3" >
 			<convert type="ServicePosition">Position</convert>
 		</widget>
-		<widget source="session.CurrentService" render="Label" position="280,5" size="120,27" font="Regular;20" halign="right" foregroundColor="white" backgroundColor="transpBlack">
+		<widget source="session.CurrentService" render="Label" position="e-145,15" size="120,27" font="Regular;20" halign="right" foregroundColor="infobar-frgrnd" backgroundColor="infobar_sunken" zPosition="3" >
 			<convert type="ServicePosition">Length</convert>
 		</widget>
-		<widget name="PTSSeekBack" position="15,33" size="390,15" zPosition="1" pixmap="slider_back.png" alphatest="on" />
-		<widget name="PTSSeekPointer" position="0,30" zPosition="3" size="19,20" pixmap="position_pointer2.png" alphatest="on" />
-		 <widget source="session.CurrentService" render="Progress" position="15,33" size="390,15" zPosition="2" pixmap="slider.png" transparent="1">
+		<widget name="PTSSeekBack" position="25,43" size="621,15" pixmap="slider_back.png" alphatest="on" zPosition="2"/>
+		<widget name="PTSSeekPointer" position="10,40" size="19,20" pixmap="position_pointer2.png" alphatest="on" zPosition="4" />
+		 <widget source="session.CurrentService" render="Progress" position="25,43" size="621,15" zPosition="3" pixmap="slider.png" transparent="1">
 			<convert type="ServicePosition">Position</convert>
 		</widget>
-		<widget name="eventname" position="60,49" zPosition="4" size="320,20" font="Regular;18" halign="center" backgroundColor="transpBlack" />
-	</screen>
-	<screen name="TimeshiftState" position="90,50" zPosition="2" size="216,74" backgroundColor="transparent" flags="wfNoBorder" transparent="0">
-		<ePixmap position="0,0" zPosition="1" size="216,74" pixmap="screens/pts-bg.png" />
-		<widget name="statusicon" position="20,15" size="20,20" zPosition="3" alphatest="on" pixmaps="icons/play.png,icons/pause.png,icons/stop.png,icons/forward.png,icons/backward.png,icons/slow.png" />
-		<widget name="speed" position="45,18" size="80,18" font="Regular;17" halign="left" foregroundColor="infobar-frgrnd" backgroundColor="infobar_sunken" transparent="1" zPosition="4" />
-		<widget name="state" position="0,0" size="0,0" />
-		<widget source="session.CurrentService" render="Label" position="88,17" size="50,20" font="Regular;17" foregroundColor="infobar-frgrnd" backgroundColor="infobar_sunken" halign="center" transparent="1" zPosition="2" valign="top">
-			<convert type="ServicePosition">Remaining</convert>
-		</widget>
-		<widget source="session.CurrentService" render="Label" position="140,17" size="50,20" font="Regular;17" foregroundColor="infobar-frgrnd" backgroundColor="infobar_sunken" halign="right" transparent="1" zPosition="2" valign="top">
-			<convert type="ServicePosition">Length</convert>
-		</widget>
-		<ePixmap position="23,35" size="170,15" zPosition="2" pixmap="slider_back.png" alphatest="on" />
-		<widget source="session.CurrentService" render="Progress" position="23,35" size="170,15" zPosition="3" pixmap="slider.png" transparent="1">
-			<convert type="ServicePosition">Position</convert>
-		</widget>
+		<widget name="statusicon" position="25,60" size="20,20" pixmaps="icons/play.png,icons/pause.png,icons/stop.png,icons/forward.png,icons/backward.png,icons/slow.png" zPosition="5" alphatest="on" />
+		<widget name="speed" position="55,62" size="80,15" font="Regular;17" halign="left" foregroundColor="infobar-frgrnd" backgroundColor="infobar_sunken" transparent="1" zPosition="5" />
+		<widget name="eventname" position="75,60" size="521,25" font="Regular;18" halign="center" foregroundColor="infobar-frgrnd" backgroundColor="infobar_sunken" transparent="1" zPosition="2" />
 	</screen>
 	<screen name="PVRState" position="92,50" zPosition="2" size="88,88" backgroundColor="transparent" flags="wfNoBorder" transparent="0">
 		<ePixmap position="0,0" zPosition="1" size="88,88" pixmap="screens/pvr-bg.png" />
@@ -2446,14 +2494,6 @@ self.autoResize()
 	</screen>
 	<screen name="Console" position="100,100" size="550,400" title="Command execution...">
 		<widget name="text" position="0,0" size="550,400" font="Console;14" />
-	</screen>"""
-	<screen name="Dish" flags="wfNoBorder" position="86,100" size="130,200" title="Dish" zPosition="1" backgroundColor="#11396D">
-		<widget name="Dishpixmap" position="0,0" size="130,160" zPosition="-1" pixmap="icons/dish.png" transparent="1" alphatest="on" />
-		<widget name="turnTime" position="5,0" size="120,20" zPosition="1" font="Regular;20" halign="right" shadowColor="black" shadowOffset="-2,-2" transparent="1" />
-		<widget name="From" position="5,164" size="50,17" zPosition="1" font="Regular;17" halign="left" shadowColor="black" shadowOffset="-2,-1" transparent="1"  />
-		<widget name="posFrom" position="57,160" size="70,20" zPosition="1" font="Regular;20" halign="left" shadowColor="black" shadowOffset="-2,-2" transparent="1" />
-		<widget name="Goto" position="5,184" size="50,17" zPosition="1" font="Regular;17" halign="left" shadowColor="black" shadowOffset="-2,-1" transparent="1" />
-		<widget name="posGoto" position="57,180" size="70,20" zPosition="1" font="Regular;20" halign="left" shadowColor="black" shadowOffset="-2,-2" transparent="1" />
 	</screen>
 	<screen name="Seekbar" position="center,40" size="560,55" flags="wfNoBorder">
 		<widget name="cursor" position="0,15" size="8,18" pixmap="position_arrow.png" alphatest="on" />
@@ -2763,7 +2803,6 @@ self.autoResize()
 		<panel name="MenuRed3Panel" />
 		<panel name="MenuGreen3Panel" />
 		<panel name="MenuYellow3Panel" />
-		<panel name="MenuBlue3Panel" />
 		<ePixmap pixmap="buttons/key_menu.png" position="0,40" size="35,25" alphatest="blend" transparent="1" zPosition="3" />
 		<ePixmap pixmap="buttons/key_info.png" position="40,40" size="35,25" alphatest="blend" transparent="1" zPosition="3" />
 		<widget name="lab1" position="0,50" size="560,50" font="Regular; 18" zPosition="2" transparent="0" halign="center"/>
@@ -2825,8 +2864,7 @@ self.autoResize()
 	<screen name="IpkgInstaller" position="center,center" size="550,450" title="Install extensions">
 		<panel name="MenuRed3Panel" />
 		<panel name="MenuGreen3Panel" />
-		<panel name="MenuYellow3Panel" />
-		<panel name="MenuBlue3Panel" />
+		<ePixmap pixmap="buttons/key_menu.png" position="20,420" size="35,25" alphatest="blend" transparent="1" zPosition="1" />
 		<widget name="list" position="5,50" size="540,360" />
 		<ePixmap pixmap="div-h.png" position="0,410" zPosition="10" size="560,2" transparent="1" alphatest="on" />
 		<widget source="introduction" render="Label" position="5,420" zPosition="10" size="550,30" halign="center" valign="center" font="Regular;22" transparent="1" shadowColor="black" shadowOffset="-1,-1" />
@@ -2903,6 +2941,7 @@ self.autoResize()
 		<widget name="list" position="0,0" size="560,400" font="Regular;14" />
 	</screen>
 	<screen name="VIXSwap" position="center,center" size="560,250" title="Swap File Manager">
+		<panel name="MenuRed3Panel" />
 		<panel name="MenuGreen3Panel" />
 		<panel name="MenuYellow3Panel" />
 		<panel name="MenuBlue3Panel" />
@@ -2919,6 +2958,10 @@ self.autoResize()
 	</screen>
 	<screen name="Screensaver" position="fill" flags="wfNoBorder">
 		<eLabel position="fill" backgroundColor="#54111112" zPosition="0"/>
-		<widget name="picture" pixmap="picon_default.png" position="0,0" size="100,60" alphatest="on" zPosition="1"/>
+		<widget name="picture" pixmap="distro-logo.png" position="0,0" size="500,500" alphatest="on" zPosition="1"/>
+	</screen>
+	<screen name="AutoVideoModeLabel" position="e-370,40" size="330,55" flags="wfNoBorder" >
+		<widget name="content" position="7,5" size="320,22" font="Regular;20" transparent="1" />
+		<widget name="restxt" position="7,26" size="320,22" font="Regular;20" transparent="1" />
 	</screen>
 </skin>
