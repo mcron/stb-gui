@@ -282,6 +282,7 @@ class Infopanel(Screen, InfoBarPiP):
 			self.Mlist.append(MenuEntryItem((InfoEntryComponent('Softcam-PanelSetup'), _("Softcam-PanelSetup"), 'Softcam-PanelSetup')))
 		#self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software update"), ("software-update"))))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software Manager"), ("software-manager"))))
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("LogManager" ), _("LogManager"), ("LogManager"))))
 		#self.Mlist.append(MenuEntryItem((InfoEntryComponent('RedPanel'), _("RedPanel"), 'RedPanel')))
 		#self.Mlist.append(MenuEntryItem((InfoEntryComponent('Yellow-Key-Action'), _("Yellow-Key-Action"), 'Yellow-Key-Action')))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('KeymapSel'), _("Keymap Selection"), 'KeymapSel')))	
