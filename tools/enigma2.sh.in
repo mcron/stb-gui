@@ -35,7 +35,7 @@ fi
 
 sync
 if [ -e /etc/.e2 ]; then
-	LD_PRELOAD=$LIBS /@bindir@/enigma2
+	LD_PRELOAD=$LIBS @bindir@/enigma2
 elif [ -e /etc/.nhd2 ]; then
 	LD_PRELOAD=$LIBS @bindir@/neutrino
 fi
