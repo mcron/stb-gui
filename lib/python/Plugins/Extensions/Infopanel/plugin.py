@@ -5,7 +5,6 @@ from Components.SelectionList import SelectionList
 from Screens.NetworkSetup import *
 from enigma import *
 from Screens.Standby import *
-from Screens.LogManager import *
 from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap, NumberActionMap, HelpableActionMap 
 from Screens.Screen import Screen
