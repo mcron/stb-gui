@@ -1,5 +1,4 @@
 #!/bin/sh
-
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 datarootdir=@datarootdir@
@@ -34,10 +33,19 @@ if [ -e @libdir@/libpassthrough.so ]; then
 fi
 
 sync
+
+# boot enigma2 or neutrino
 if [ -e /etc/.e2 ]; then
 	LD_PRELOAD=$LIBS @bindir@/enigma2
 elif [ -e /etc/.nhd2 ]; then
 	LD_PRELOAD=$LIBS @bindir@/neutrino
+
+########## quick and easy start softcam from e2  #########
+emu=`cat /etc/*.emu | grep startcam  | cut -d = -f2`		
+		if [ -e /etc/*.emu ]; then
+			$emu &
+		fi
+##########################################################
 fi
 
 # enigma2 exit codes:
