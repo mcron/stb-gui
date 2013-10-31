@@ -1,4 +1,5 @@
 #!/bin/sh
+
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 datarootdir=@datarootdir@
@@ -33,19 +34,14 @@ if [ -e @libdir@/libpassthrough.so ]; then
 fi
 
 sync
-
-# boot enigma2 or neutrino
-if [ -e /etc/.e2 ]; then
+if [ "$(grep config.crash.enabledebug /etc/enigma2/settings)" == "config.crash.enabledebug=true" ]; then
+	if [ "$(grep config.crash.debug_path= /etc/enigma2/settings | sed 's/config.crash.debug_path=//g')" != "" -a -d "$(grep config.crash.debug_path= /etc/enigma2/settings | sed 's/config.crash.debug_path=//g')" ]; then
+		LD_PRELOAD=$LIBS @bindir@/enigma2 &> $(grep config.crash.debug_path= /etc/enigma2/settings | sed 's/config.crash.debug_path=//g')Enigma2-$(date +%d-%m-%Y_%H-%M-%S).log
+	else
+		LD_PRELOAD=$LIBS @bindir@/enigma2 &> /home/root/logs/Enigma2-$(date +%d-%m-%Y_%H-%M-%S).log
+	fi
+else
 	LD_PRELOAD=$LIBS @bindir@/enigma2
-elif [ -e /etc/.nhd2 ]; then
-	LD_PRELOAD=$LIBS @bindir@/neutrino
-
-########## quick and easy start softcam from e2  #########
-emu=`cat /etc/*.emu | grep startcam  | cut -d = -f2`		
-		if [ -e /etc/*.emu ]; then
-			$emu &
-		fi
-##########################################################
 fi
 
 # enigma2 exit codes:
