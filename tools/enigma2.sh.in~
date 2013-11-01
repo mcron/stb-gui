@@ -21,6 +21,13 @@ if [ -x @bindir@/showiframe ]; then
 		fi
 	fi
 fi
+if [ -x @bindir@/showiframe ]; then
+	if [ -f @sysconfdir@/enigma2/backdrop.mvi ]; then
+		@bindir@/showiframe @sysconfdir@/enigma2/backdrop.mvi
+	elif [ -f @datadir@/backdrop.mvi ]; then
+		@bindir@/showiframe @datadir@/backdrop.mvi
+	fi
+fi
 
 # hook to execute scripts always before enigma2 start
 if [ -x @bindir@/enigma2_pre_start.sh ]; then
