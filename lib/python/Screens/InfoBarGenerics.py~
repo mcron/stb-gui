@@ -3467,43 +3467,36 @@ class InfoBarPiP:
 			slist.togglePipzap()
 
 	def showPiP(self):
-		try:
-			service = self.session.nav.getCurrentService()
-			if self.session.pipshown:
-				slist = self.servicelist
-				if slist and slist.dopipzap:
-					slist.togglePipzap()
-				del self.session.pip
-				self.session.pipshown = False
+		if self.session.pipshown:
+			slist = self.servicelist
+			if slist and slist.dopipzap:
+				slist.togglePipzap()
+			del self.session.pip
+			self.session.pipshown = False
+		else:
+			self.session.pip = self.session.instantiateDialog(PictureInPicture)
+			self.session.pip.show()
+			newservice = self.servicelist.servicelist.getCurrent()
+			if self.session.pip.playService(newservice):
+				self.session.pipshown = True
+				self.session.pip.servicePath = self.servicelist.getCurrentServicePath()
 			else:
-				if about.getCPUString() == 'BCM7346B2' or about.getCPUString() == 'BCM7425B2':
-					self.session.pip = self.session.instantiateDialog(PictureInPicture)
-					self.session.pip.show()
-					newservice = self.servicelist.servicelist.getCurrent()
-					if self.session.pip.playService(newservice):
-						self.session.pipshown = True
-						self.session.pip.servicePath = self.servicelist.getCurrentServicePath()
-					else:
-						self.session.pipshown = False
-						del self.session.pip
-				else:
-					self.session.open(MessageBox, _("Your %s %s does not support PiP HD") % (getMachineBrand(), getMachineName()), type = MessageBox.TYPE_INFO,timeout = 5 )
-		except:
-			pass
+				self.session.pipshown = False
+				del self.session.pip
 
 	def swapPiP(self):
 		swapservice = self.session.nav.getCurrentlyPlayingServiceOrGroup()
 		pipref = self.session.pip.getCurrentService()
 		if swapservice and pipref and pipref.toString() != swapservice.toString():
 			currentServicePath = self.servicelist.getCurrentServicePath()
-			#self.servicelist.setCurrentServicePath(self.session.pip.servicePath)	
+			self.servicelist.setCurrentServicePath(self.session.pip.servicePath)
 			self.session.pip.playService(swapservice)
 			self.session.nav.stopService() # stop portal
 			self.session.nav.playService(pipref) # start subservice
 			self.session.pip.servicePath = currentServicePath
-			#if self.servicelist.dopipzap:
+			if self.servicelist.dopipzap:
 				# This unfortunately won't work with subservices
-			#	self.servicelist.setCurrentSelection(self.session.pip.getCurrentService())
+				self.servicelist.setCurrentSelection(self.session.pip.getCurrentService())
 
 	def movePiP(self):
 		self.session.open(PiPSetup, pip = self.session.pip)
