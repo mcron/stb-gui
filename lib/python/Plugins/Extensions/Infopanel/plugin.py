@@ -844,7 +844,125 @@ class YellowPanel(ConfigListScreen, Screen):
 			self.session.openWithCallback(self.cancelConfirm, MessageBox, _("Really close without saving settings?"))
 		else:
 			self.close()
+class ShowSoftcamPanelExtensions(ConfigListScreen, Screen):
+	def __init__(self, session):
+		Screen.__init__(self, session)
+		self.session = session
+		self.skinName = "Setup"
+		Screen.setTitle(self, _("Softcam-Panel Setup") + "...")
+		self.setup_title = _("Softcam-Panel Setup") + "..."
+		self["HelpWindow"] = Pixmap()
+		self["HelpWindow"].hide()
+		self["status"] = StaticText()
+		self['footnote'] = Label("")
+		self["description"] = Label("")
+		self["labelExitsave"] = Label("[Exit] = " +_("Cancel") +"              [Ok] =" +_("Save"))
+		CamCheckStop()
 
+		self.onChangedEntry = [ ]
+		self.list = []
+		ConfigListScreen.__init__(self, self.list, session = self.session, on_change = self.changedEntry)
+		self.createSetup()
+
+		self["actions"] = ActionMap(["SetupActions", 'ColorActions'],
+		{
+			"ok": self.keySave,
+			"cancel": self.keyCancel,
+			"red": self.keyCancel,
+			"green": self.keySave,
+			"menu": self.keyCancel,
+		}, -2)
+
+		self["key_red"] = StaticText(_("Cancel"))
+		self["key_green"] = StaticText(_("OK"))
+		if not self.selectionChanged in self["config"].onSelectionChanged:
+			self["config"].onSelectionChanged.append(self.selectionChanged)
+		self.selectionChanged()
+
+	def createSetup(self):
+		self.editListEntry = None
+		self.list = []
+		self.list.append(getConfigListEntry(_("Show Softcam-Panel in Extensions Menu"), config.plugins.showinfopanelextensions))
+		self.list.append(getConfigListEntry(_("Start Mode"), config.softcam.camstartMode))
+		if config.softcam.camstartMode.getValue() == "0":
+			self.list.append(getConfigListEntry(_("Start attempts"), config.softcam.restartAttempts))
+			self.list.append(getConfigListEntry(_("Time between start attempts (sec.)"), config.softcam.restartTime))
+			self.list.append(getConfigListEntry(_("Stop check when cam is running"), config.softcam.restartRunning))
+		self.list.append(getConfigListEntry(_("Show CCcamInfo in Extensions Menu"), config.cccaminfo.showInExtensions))
+		self.list.append(getConfigListEntry(_("Show OscamInfo in Extensions Menu"), config.oscaminfo.showInExtensions))
+		self.list.append(getConfigListEntry(_("Frozen Cam Check"), config.plugins.infopanel_frozencheck.list))
+		self.list.append(getConfigListEntry(_("Wait time before start Cam 2"), config.softcam.waittime))
+		
+		self["config"].list = self.list
+		self["config"].setList(self.list)
+		if config.usage.sort_settings.getValue():
+			self["config"].list.sort()
+
+	def selectionChanged(self):
+		self["status"].setText(self["config"].getCurrent()[0])
+
+	def changedEntry(self):
+		for x in self.onChangedEntry:
+			x()
+		self.selectionChanged()
+		self.createSetup()
+
+	def getCurrentEntry(self):
+		return self["config"].getCurrent()[0]
+
+	def getCurrentValue(self):
+		return str(self["config"].getCurrent()[1].getText())
+
+	def getCurrentDescription(self):
+		return self["config"].getCurrent() and len(self["config"].getCurrent()) > 2 and self["config"].getCurrent()[2] or ""
+
+	def createSummary(self):
+		from Screens.Setup import SetupSummary
+		return SetupSummary
+	
+	def saveAll(self):
+		if config.softcam.camstartMode.getValue() == "0":
+			if os.path.exists("/etc/rc2.d/S20softcam.cam1"):
+				print"Delete Symbolink link"
+				self.container = eConsoleAppContainer()
+				self.container.execute('update-rc.d -f softcam.cam1 defaults')
+			if os.path.exists("/etc/init.d/softcam.cam1"):
+				print"Delete softcam init script cam1"
+				os.system("rm /etc/init.d/softcam.cam1")
+				
+			if os.path.exists("/etc/rc2.d/S20softcam.cam2"):
+				print"Delete Symbolink link"
+				self.container = eConsoleAppContainer()
+				self.container.execute('update-rc.d -f softcam.cam2 defaults')
+			if os.path.exists("/etc/init.d/softcam.cam2"):
+				print"Delete softcam init script cam2"
+				os.system("rm /etc/init.d/softcam.cam2")
+			
+		for x in self["config"].list:
+			x[1].save()
+		configfile.save()
+
+	def keySave(self):
+		self.saveAll()
+		self.doClose()
+
+	def cancelConfirm(self, result):
+		if not result:
+			return
+		for x in self["config"].list:
+			x[1].cancel()
+		self.doClose()
+
+	def keyCancel(self):
+		if self["config"].isChanged():
+			self.session.openWithCallback(self.cancelConfirm, MessageBox, _("Really close without saving settings?"))
+		else:
+			self.doClose()
+
+	def doClose(self):
+		if not config.plugins.infopanel_frozencheck.list.getValue() == '0':
+			CamCheck()
+		self.close()
 
 class Info(Screen):
 	def __init__(self, session, info):
