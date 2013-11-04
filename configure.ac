@@ -385,7 +385,6 @@ lib/python/Plugins/Extensions/Infopanel/meta/Makefile
 lib/python/Plugins/Extensions/Infopanel/pics/Makefile
 lib/python/Plugins/Extensions/Infopanel/locale/Makefile
 lib/python/Plugins/Extensions/Infopanel/icons/Makefile
-lib/python/Plugins/Extensions/Infopanel/scripts/Makefile
 lib/python/Plugins/Extensions/Infopanel/Extra/Makefile
 lib/python/Plugins/Extensions/IniMyTube/Makefile
 lib/python/Plugins/Extensions/IPTVStreams/Makefile
