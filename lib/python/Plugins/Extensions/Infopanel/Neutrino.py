@@ -51,7 +51,7 @@ class Neutrino(Screen):
 	def populate_List(self):
 		self['lab1'].setText(_("Select how to run NeutrinoHD:"))
 		del self.list[:]
-		f = listdir('/usr/lib/enigma2/python/Plugins/Extensions/Infopanel/scripts')
+		f = listdir('/usr/scripts')
 		for line in f:
 			parts = line.split()
 			pkg = parts[0]
@@ -69,7 +69,7 @@ class Neutrino(Screen):
 
 	def Run(self,answer):
 		if answer is True:
-			cmd1 = ". /usr/lib/enigma2/python/Plugins/Extensions/Infopanel/scripts/" + self.sel
+			cmd1 = ". /usr/scripts/" + self.sel
 			self.session.open(Console, title=self.sel, cmdlist = [cmd1], closeOnSuccess = False)	
 					
 	def myclose(self):
