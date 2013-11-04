@@ -5,6 +5,7 @@ from Components.SelectionList import SelectionList
 from Screens.NetworkSetup import *
 from enigma import *
 from Screens.Standby import *
+from Screens.LogManager import *
 from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap, NumberActionMap, HelpableActionMap 
 from Screens.Screen import Screen
@@ -283,6 +284,7 @@ class Infopanel(Screen, InfoBarPiP):
 			self.Mlist.append(MenuEntryItem((InfoEntryComponent('Softcam-PanelSetup'), _("Softcam-PanelSetup"), 'Softcam-PanelSetup')))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software Manager"), ("software-manager"))))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("QuickMenu" ), _("QuickMenu"), ("QuickMenu"))))
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("LogManager" ), _("LogManager"), ("LogManager"))))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("NeutrinoHD2" ), _("NeutrinoHD2"), ("NeutrinoHD2"))))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('KeymapSel'), _("Keymap Selection"), 'KeymapSel')))	
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Plugins'), _("Plugins"), 'Plugins')))
@@ -451,6 +453,8 @@ class Infopanel(Screen, InfoBarPiP):
 			self.session.open(Neutrino)
 		elif menu == "QuickMenu":
 			self.session.open(QuickMenu)
+		elif menu == "LogManager":
+			self.session.open(LogManager)
 		else:
 			pass
 
