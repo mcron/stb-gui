@@ -477,4 +477,94 @@ class PluginDownloadBrowser(Screen):
 		self.list = list
 		self["list"].l.setList(list)
 
+class PluginFilter(ConfigListScreen, Screen):
+	def __init__(self, session):
+		Screen.__init__(self, session)
+		self.session = session
+		self.skinName = "Setup"
+		Screen.setTitle(self, _("Plugin Filter..."))
+		self["HelpWindow"] = Pixmap()
+		self["HelpWindow"].hide()
+		self["status"] = StaticText()
+		self["labelExitsave"] = Label("[Exit] = " +_("Cancel") +"              [Ok] =" +_("Save"))
+
+		self.onChangedEntry = [ ]
+		self.list = []
+		ConfigListScreen.__init__(self, self.list, session = self.session, on_change = self.changedEntry)
+		self.createSetup()
+
+		self["actions"] = ActionMap(["SetupActions", 'ColorActions'],
+		{
+			"ok": self.keySave,
+			"cancel": self.keyCancel,
+			"red": self.keyCancel,
+			"green": self.keySave,
+			"menu": self.keyCancel,
+		}, -2)
+
+		self["key_red"] = StaticText(_("Cancel"))
+		self["key_green"] = StaticText(_("OK"))
+		if not self.selectionChanged in self["config"].onSelectionChanged:
+			self["config"].onSelectionChanged.append(self.selectionChanged)
+		self.selectionChanged()
+
+	def createSetup(self):
+		self.editListEntry = None
+		self.list = []
+		self.list.append(getConfigListEntry(_("drivers"), config.pluginfilter.drivers, _("This allows you to show drivers modules in downloads")))
+		self.list.append(getConfigListEntry(_("extensions"), config.pluginfilter.extensions, _("This allows you to show extensions modules in downloads")))
+		self.list.append(getConfigListEntry(_("systemplugins"), config.pluginfilter.systemplugins, _("This allows you to show systemplugins modules in downloads")))
+		self.list.append(getConfigListEntry(_("softcams"), config.pluginfilter.softcams, _("This allows you to show softcams modules in downloads")))
+		self.list.append(getConfigListEntry(_("skins"), config.pluginfilter.skins, _("This allows you to show skins modules in downloads")))
+		self.list.append(getConfigListEntry(_("display"), config.pluginfilter.skins, _("This allows you to show lcd skins in downloads")))
+		self.list.append(getConfigListEntry(_("picons"), config.pluginfilter.picons, _("This allows you to show picons modules in downloads")))
+		self.list.append(getConfigListEntry(_("settings"), config.pluginfilter.settings, _("This allows you to show settings modules in downloads")))
+		self.list.append(getConfigListEntry(_("m2k"), config.pluginfilter.m2k, _("This allows you to show m2k modules in downloads")))
+		self.list.append(getConfigListEntry(_("weblinks"), config.pluginfilter.weblinks, _("This allows you to show weblinks modules in downloads")))
+		self.list.append(getConfigListEntry(_("pli"), config.pluginfilter.pli, _("This allows you to show pli modules in downloads")))
+		self.list.append(getConfigListEntry(_("vix"), config.pluginfilter.vix, _("This allows you to show vix modules in downloads")))
+		self.list.append(getConfigListEntry(_("security"), config.pluginfilter.security, _("This allows you to show security modules in downloads")))
+		self.list.append(getConfigListEntry(_("kernel modules"), config.pluginfilter.kernel, _("This allows you to show kernel modules in downloads")))
+		
+		self["config"].list = self.list
+		self["config"].setList(self.list)
+		if config.usage.sort_settings.getValue():
+			self["config"].list.sort()
+
+	def selectionChanged(self):
+		self["status"].setText(self["config"].getCurrent()[2])
+
+	def changedEntry(self):
+		for x in self.onChangedEntry:
+			x()
+		self.selectionChanged()
+
+	def getCurrentEntry(self):
+		return self["config"].getCurrent()[0]
+
+	def getCurrentValue(self):
+		return str(self["config"].getCurrent()[1].getText())
+
+	def saveAll(self):
+		for x in self["config"].list:
+			x[1].save()
+		configfile.save()
+
+	def keySave(self):
+		self.saveAll()
+		self.close()
+
+	def cancelConfirm(self, result):
+		if not result:
+			return
+		for x in self["config"].list:
+			x[1].cancel()
+		self.close()
+
+	def keyCancel(self):
+		if self["config"].isChanged():
+			self.session.openWithCallback(self.cancelConfirm, MessageBox, _("Really close without saving settings?"))
+		else:
+			self.close()
+
 language.addCallback(languageChanged)
