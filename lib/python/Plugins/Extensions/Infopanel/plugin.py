@@ -57,9 +57,11 @@ if os.path.isfile("/usr/lib/enigma2/python/Plugins/Extensions/MultiQuickButton/p
 
 from Plugins.Extensions.Infopanel.CronManager import *
 from Plugins.Extensions.Infopanel.ScriptRunner import *
+from Plugins.Extensions.Infopanel.Neutrino import *
 from Plugins.Extensions.Infopanel.MountManager import *
 from Plugins.Extensions.Infopanel.SoftcamPanel import *
 from Plugins.Extensions.Infopanel.CamStart import *
+from Plugins.Extensions.Infopanel.QuickMenu import QuickMenu
 from Plugins.Extensions.Infopanel.CamCheck import *
 from Plugins.Extensions.Infopanel.sundtek import *
 from Plugins.Extensions.Infopanel.SwapManager import Swap, SwapAutostart
@@ -116,7 +118,7 @@ def command(comandline, strip=1):
   os.system("rm /tmp/command.txt")
   return comandline
 
-INFO_Panel_Version = 'Info-Panel V1.1'
+INFO_Panel_Version = 'Info-Panel V2.0 (mod by mcron)'
 boxversion = command('cat /etc/image-version | grep box_type | cut -d = -f2')
 print "[Info-Panel] boxversion: %s"  % (boxversion)
 panel = open("/tmp/infopanel.ver", "w")
@@ -279,10 +281,9 @@ class Infopanel(Screen, InfoBarPiP):
 		if Check_Softcam():
 			self.Mlist.append(MenuEntryItem((InfoEntryComponent('SoftcamPanel'), _("SoftcamPanel"), 'SoftcamPanel')))
 			self.Mlist.append(MenuEntryItem((InfoEntryComponent('Softcam-PanelSetup'), _("Softcam-PanelSetup"), 'Softcam-PanelSetup')))
-		#self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software update"), ("software-update"))))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software Manager"), ("software-manager"))))
-		#self.Mlist.append(MenuEntryItem((InfoEntryComponent('RedPanel'), _("RedPanel"), 'RedPanel')))
-		#self.Mlist.append(MenuEntryItem((InfoEntryComponent('Yellow-Key-Action'), _("Yellow-Key-Action"), 'Yellow-Key-Action')))
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("QuickMenu" ), _("QuickMenu"), ("QuickMenu"))))
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("NeutrinoHD2" ), _("NeutrinoHD2"), ("NeutrinoHD2"))))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('KeymapSel'), _("Keymap Selection"), 'KeymapSel')))	
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Plugins'), _("Plugins"), 'Plugins')))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Infos'), _("Infos"), 'Infos')))
@@ -446,6 +447,10 @@ class Infopanel(Screen, InfoBarPiP):
 			self.session.open(ShowSoftcamPanelExtensions)
 		elif menu == "KeymapSel":
 			self.session.open(KeymapSel)
+		elif menu == "NeutrinoHD2":
+			self.session.open(Neutrino)
+		elif menu == "QuickMenu":
+			self.session.open(QuickMenu)
 		else:
 			pass
 
@@ -757,6 +762,7 @@ class RedPanel(ConfigListScreen, Screen):
 			self.session.openWithCallback(self.cancelConfirm, MessageBox, _("Really close without saving settings?"))
 		else:
 			self.close()
+
 
 class YellowPanel(ConfigListScreen, Screen):
 	def __init__(self, session):
@@ -1226,4 +1232,6 @@ class Info(Screen):
 		except:
 			o = ''
 			return o
+
+
 

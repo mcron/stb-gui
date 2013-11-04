@@ -1,0 +1,5 @@
+installdir = $(pkglibdir)/python/Plugins/Extensions/Infopanel/scripts
+
+install_PYTHON = *.sh
+
+
