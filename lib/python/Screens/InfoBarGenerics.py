@@ -3158,7 +3158,9 @@ class InfoBarExtensions:
 			{
 				"extensions": (self.showExtensionSelection, _("view extensions...")),
 				"showPluginBrowser": (self.showPluginBrowser, _("Show the plugin browser..")),
+				"showInfoPanel": (self.showInfoPanel, _("Show the InfoPanel..")),
 				"showMediaPlayer": (self.showMediaPlayer, _("Show the media player...")),
+				"showMediaPortal": (self.showMediaPortal, _("Show the Mediaportal...")),
 			}, 1) # lower priority
 
 		self.addExtension(extension = self.getOsd3DSetup, type = InfoBarExtensions.EXTENSION_LIST)
@@ -3256,6 +3258,13 @@ class InfoBarExtensions:
 	def showPluginBrowser(self):
 		from Screens.PluginBrowser import PluginBrowser
 		self.session.open(PluginBrowser)
+
+	def showInfoPanel(self):
+		from Plugins.Extensions.Infopanel.plugin import Infopanel
+		self.session.open(Infopanel)
+	def showMediaPortal(self):
+		from Plugins.Extensions.MediaPortal.plugin import haupt_Screen
+		self.session.open(haupt_Screen)
 
 	def openCCcamInfo(self):
 		from Screens.CCcamInfo import CCcamInfoMain
