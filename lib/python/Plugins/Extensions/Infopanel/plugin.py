@@ -70,34 +70,7 @@ from Plugins.Extensions.Infopanel.sundtek import *
 from Plugins.Extensions.Infopanel.SwapManager import Swap, SwapAutostart
 from Plugins.Extensions.Infopanel.SoftwarePanel import SoftwarePanel
 from Plugins.SystemPlugins.SoftwareManager.BackupRestore import BackupScreen, RestoreScreen, BackupSelection, getBackupPath, getBackupFilename
-def autostart(reason, **kwargs):
-	help_keymap = "/usr/lib/enigma2/python/Plugins/Extensions/InfoPanel/keymap.xml"
-	if "session" in kwargs:
-		global back_session
-		back_session = kwargs["session"]	
-	if reason == 0:
-		removeKeymap(help_keymap)
-		global globalActionMap
-		if 'showPanel' in globalActionMap.actions:
-			del globalActionMap.actions['showPanel']
-			readKeymap(help_keymap)
-		
-		global globalActionMap
-		globalActionMap.actions['showPanel'] = autoShow
-	elif reason == 1:
-		removeKeymap(help_keymap)
-		global globalActionMap
-		if 'showPanel' in globalActionMap.actions:
-			del globalActionMap.actions['showPanel']
-		
 
-
-
-def autoShow():
-	global back_session
-	session = back_session
-	if session is not None:
-		session.open(Infopanel)
 def Check_Softcam():
 	found = False
 	for x in os.listdir('/etc'):
