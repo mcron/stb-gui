@@ -7,6 +7,7 @@ from enigma import *
 from Screens.Standby import *
 from Screens.LogManager import *
 from Screens.MessageBox import MessageBox
+from Plugins.SystemPlugins.SoftwareManager.Flash_online import FlashOnline
 from Components.ActionMap import ActionMap, NumberActionMap, HelpableActionMap 
 from Screens.Screen import Screen
 from Screens.ChoiceBox import ChoiceBox
@@ -282,11 +283,12 @@ class Infopanel(Screen, InfoBarPiP):
 		if Check_Softcam():
 			self.Mlist.append(MenuEntryItem((InfoEntryComponent('SoftcamPanel'), _("SoftcamPanel"), 'SoftcamPanel')))
 			self.Mlist.append(MenuEntryItem((InfoEntryComponent('Softcam-PanelSetup'), _("Softcam-PanelSetup"), 'Softcam-PanelSetup')))
-		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software Manager"), ("software-manager"))))
-		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("QuickMenu" ), _("QuickMenu"), ("QuickMenu"))))
-		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("LogManager" ), _("LogManager"), ("LogManager"))))
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("ImageFlash" ), _("Image-Flasher"), ("ImageFlash"))))
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("QuickMenu" ), _("Quick-Menu"), ("QuickMenu"))))
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("LogManager" ), _("Log-Manager"), ("LogManager"))))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("NeutrinoHD2" ), _("NeutrinoHD2"), ("NeutrinoHD2"))))
-		self.Mlist.append(MenuEntryItem((InfoEntryComponent('KeymapSel'), _("Keymap Selection"), 'KeymapSel')))	
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent ("SoftwareManager" ), _("Software-Manager"), ("software-manager"))))
+		self.Mlist.append(MenuEntryItem((InfoEntryComponent('KeymapSel'), _("Keymap-Selection"), 'KeymapSel')))	
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Plugins'), _("Plugins"), 'Plugins')))
 		self.Mlist.append(MenuEntryItem((InfoEntryComponent('Infos'), _("Infos"), 'Infos')))
 		self.onChangedEntry = []
@@ -455,6 +457,8 @@ class Infopanel(Screen, InfoBarPiP):
 			self.session.open(QuickMenu)
 		elif menu == "LogManager":
 			self.session.open(LogManager)
+		elif menu == "ImageFlash":
+			self.session.open(FlashOnline)
 		else:
 			pass
 
