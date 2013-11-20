@@ -374,7 +374,6 @@ lib/python/Plugins/Extensions/MediaScanner/meta/Makefile
 lib/python/Plugins/Extensions/Modem/Makefile
 lib/python/Plugins/Extensions//Makefile
 lib/python/Plugins/Extensions/BMediaCenterl/meta/Makefile
-lib/python/Plugins/Extensions/BMediaCenter/pics/Makefile
 lib/python/Plugins/Extensions/BMediaCenter/radio/Makefile
 lib/python/Plugins/Extensions/BMediaCenter/saver/Makefile
 lib/python/Plugins/Extensions/BMediaCenter/skins/Makefile
