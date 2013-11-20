@@ -1,6 +1,6 @@
 installdir = $(pkglibdir)/python/Plugins/Extensions
 
-SUBDIRS = TuxboxPlugins CutListEditor PicturePlayer MediaScanner MediaPlayer SocketMMI DVDBurn Modem IniMyTube Infopanel IPTVStreams bmediacenter
+SUBDIRS = TuxboxPlugins CutListEditor PicturePlayer MediaScanner MediaPlayer SocketMMI DVDBurn Modem IniMyTube Infopanel IPTVStreams BMediaCenter
 
 if HAVE_LIBDDVD
 SUBDIRS += DVDPlayer
