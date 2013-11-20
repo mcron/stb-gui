@@ -372,14 +372,6 @@ lib/python/Plugins/Extensions/MediaPlayer/meta/Makefile
 lib/python/Plugins/Extensions/MediaScanner/Makefile
 lib/python/Plugins/Extensions/MediaScanner/meta/Makefile
 lib/python/Plugins/Extensions/Modem/Makefile
-lib/python/Plugins/Extensions/BMediaCenter/meta/Makefile
-lib/python/Plugins/Extensions/BMediaCenter/radio/Makefile
-lib/python/Plugins/Extensions/BMediaCenter/saver/Makefile
-lib/python/Plugins/Extensions/BMediaCenter/skins/Makefile
-lib/python/Plugins/Extensions/BMediaCenter/skins/defaultHD/Makefile
-lib/python/Plugins/Extensions/BMediaCenter/skins/defaultHD/images/Makefile
-lib/python/Plugins/Extensions/BMediaCenter/icons/Makefile
-lib/python/Plugins/Extensions/BMediaCenter/icons/70x70/Makefile
 lib/python/Plugins/Extensions/PicturePlayer/Makefile
 lib/python/Plugins/Extensions/PicturePlayer/meta/Makefile
 lib/python/Plugins/Extensions/PicturePlayer/data/Makefile
