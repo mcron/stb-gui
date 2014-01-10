@@ -22,6 +22,14 @@ if EBOX5000
 SUBDIRS = ebox5000
 endif
 
+if E3HD
+SUBDIRS = e3hd
+endif
+
+if EBOX5000
+SUBDIRS = ebox5000
+endif
+
 if ET4X00
 SUBDIRS = et4x00
 endif
